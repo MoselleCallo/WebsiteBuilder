@@ -1,23 +1,23 @@
-'use client';
+"use client";
 import React from "react";
 import { colorPalettes } from "@/app/theme";
 
 type EditorState = {
   aboutHeading: string;
   aboutDesc: string;
-  aboutLayout: 'side' | 'vertical';
-  font: 'inter' | 'poppins' | 'montserrat';
+  aboutLayout: "side" | "vertical";
+  font: "inter" | "poppins" | "montserrat";
   theme: keyof typeof colorPalettes;
 
   logo: string | null;
   aboutSection: string | null;
 };
 
-export default function Canvas({ editor }: { editor: EditorState }) {
+export default function Canvas({ editor, changeView }: { editor: EditorState; changeView: boolean; }) {
   const fontOptions = {
-    inter: 'font-inter',
-    poppins: 'font-poppins',
-    montserrat: 'font-montserrat',
+    inter: "font-inter",
+    poppins: "font-poppins",
+    montserrat: "font-montserrat",
   };
 
   const currentPalette = colorPalettes[editor.theme];
@@ -26,19 +26,26 @@ export default function Canvas({ editor }: { editor: EditorState }) {
     <div
       style={
         {
-          '--color-main': currentPalette.main,
-          '--color-primary': currentPalette.primary,
-          '--color-secondary': currentPalette.secondary,
-          '--color-accent': currentPalette.accent,
+          "--color-main": currentPalette.main,
+          "--color-primary": currentPalette.primary,
+          "--color-secondary": currentPalette.secondary,
+          "--color-accent": currentPalette.accent,
 
-          '--text-main': currentPalette.textMain,
-          '--text-muted': currentPalette.textMuted,
-          '--text-onPrimary': currentPalette.textOnPrimary,
+          "--text-main": currentPalette.textMain,
+          "--text-muted": currentPalette.textMuted,
+          "--text-onPrimary": currentPalette.textOnPrimary,
         } as React.CSSProperties
       }
       className="items-center justify-center p-12"
     >
-      <div className={`rounded-xl shadow-2xl ${fontOptions[editor.font]}`}>
+      <div
+        className={`items-center justify-center rounded-xl shadow-2xl ${fontOptions[editor.font]}  
+        ${
+          changeView
+            ? "w-[375px] max-w-full rounded-2xl p-4" // Device frame dimensions for mobile
+            : "w-full rounded-t-xl p-8" // Native full dimensions for desktop
+        } `}
+      >
         <header className="sticky top-0 w-full h-18 z-50 bg-[var(--color-main)] rounded-t-xl shadow-2xl items-center">
           <div className="flex justify-between p-4 items-center">
             {/* Logo Container */}
@@ -71,9 +78,9 @@ export default function Canvas({ editor }: { editor: EditorState }) {
         <div
           className={`bg-[var(--color-main)] text-[var(--text-main)] p-12 flex gap-10 max-w-5xl w-full
             ${
-              editor.aboutLayout === 'side'
-                ? 'flex-row items-center'
-                : 'flex-col text-center'
+              editor.aboutLayout === "side"
+                ? "flex-row items-center"
+                : "flex-col text-center"
             }
           `}
         >
@@ -91,8 +98,8 @@ export default function Canvas({ editor }: { editor: EditorState }) {
           <div
             className={`flex-1 ${
               editor.aboutSection
-                ? 'none'
-                : 'bg-gray-100 aspect-square rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300'
+                ? "none"
+                : "bg-gray-100 aspect-square rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300"
             }`}
           >
             {editor.aboutSection ? (
