@@ -36,17 +36,17 @@ export default function Canvas({ editor, changeView }: { editor: EditorState; ch
           "--text-onPrimary": currentPalette.textOnPrimary,
         } as React.CSSProperties
       }
-      className="items-center justify-center p-12"
+      className="p-12 overflow-y-auto h-screen"
     >
       <div
-        className={`items-center justify-center rounded-xl shadow-2xl ${fontOptions[editor.font]}  
+        className={`rounded-xl mx-auto bg-[var(--color-main)] ${fontOptions[editor.font]}
         ${
           changeView
-            ? "w-[375px] max-w-full rounded-2xl p-4" // Device frame dimensions for mobile
-            : "w-full rounded-t-xl p-8" // Native full dimensions for desktop
+            ? "w-[375px]" // Device frame dimensions for mobile
+            : "w-full" // Native full dimensions for desktop
         } `}
       >
-        <header className="sticky top-0 w-full h-18 z-50 bg-[var(--color-main)] rounded-t-xl shadow-2xl items-center">
+        <header className="relative fixed top-0 w-full h-18 z-50 bg-[var(--color-main)] rounded-t-xl shadow-2xl items-center">
           <div className="flex justify-between p-4 items-center">
             {/* Logo Container */}
             <div className="items-center">
@@ -76,12 +76,14 @@ export default function Canvas({ editor, changeView }: { editor: EditorState; ch
         </header>
 
         <div
-          className={`bg-[var(--color-main)] text-[var(--text-main)] p-12 flex gap-10 max-w-5xl w-full
+          className={`bg-[var(--color-main)] text-[var(--text-main)] p-12 flex gap-10 w-full rounded-t-xl
             ${
-              editor.aboutLayout === "side"
+          changeView
+            ? "flex-col text-center"
+            : editor.aboutLayout === "side"
                 ? "flex-row items-center"
-                : "flex-col text-center"
-            }
+                : "flex-col text-center" 
+        }
           `}
         >
           {/* Text Group */}

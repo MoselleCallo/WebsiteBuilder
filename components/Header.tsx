@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { colorPalettes } from "@/app/theme";
 
 type OpenState =
   | "font"
@@ -10,17 +11,37 @@ type OpenState =
   | "view"
   | null;
 
+type EditorState = {
+  aboutHeading: string;
+  aboutDesc: string;
+  aboutLayout: "side" | "vertical";
+  font: "inter" | "poppins" | "montserrat";
+  theme: keyof typeof colorPalettes;
+
+  logo: string | null;
+  aboutSection: string | null;
+};
 export default function Header({
   changeView,
   setChangeView,
   isOpen,
   setIsOpen,
+  setEditor,
 }: {
   isOpen: OpenState;
   setIsOpen: React.Dispatch<React.SetStateAction<OpenState>>;
   changeView: boolean;
   setChangeView: React.Dispatch<React.SetStateAction<boolean>>;
+  setEditor: React.Dispatch<React.SetStateAction<EditorState>>;
 }) {
+  const mobileView = () => {
+    setChangeView(!changeView);
+    setEditor((prev) => ({
+      ...prev,
+      aboutLayout: "side",
+    }));
+  };
+
   return (
     <header className="sticky top-0 w-full h-16 z-50 bg-[#09213D]">
       <div className="flex justify-between p-4 items-center">
@@ -32,10 +53,7 @@ export default function Header({
             defaultValue="Untitled1"
           />
           {/* Change View to Mobile */}
-          <button
-            onClick={() => setChangeView(!changeView)}
-            className="flex items-center"
-          >
+          <button onClick={mobileView} className="flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"

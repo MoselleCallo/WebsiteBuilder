@@ -42,23 +42,24 @@ export default function App() {
   const [changeView, setChangeView] = useState(false);
 
   return (
-    <main className="flex h-screen bg-[#09213D] overflow-hidden">
+    <main className="flex flex-col h-screen bg-[#09213D] overflow-hidden md:flex-row">
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <Header
+          changeView={changeView}
+          setChangeView={setChangeView}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          setEditor={setEditor}
+        />
+        <Canvas editor={editor} changeView={changeView} />
+      </div>
+      
       <Sidebar
         editor={editor}
         setEditor={setEditor}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       />
-
-      <div className="flex-1 flex flex-col h-full overflow-hidden">
-        <Header
-          changeView={changeView}
-          setChangeView={setChangeView}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-        />
-        <Canvas editor={editor} changeView={changeView}/>
-      </div>
     </main>
   );
 }

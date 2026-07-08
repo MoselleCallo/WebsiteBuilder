@@ -57,7 +57,7 @@ export default function Sidebar({
 
   return (
     <>
-      <div className="w-1/4 bg-[#A2C2E0] rounded-t-xl h-full flex flex-col">
+      <div className="w-full md:w-1/4 h-1/3 md:h-full bg-[#A2C2E0] rounded-t-xl flex flex-col">
         <header className="sticky top-0 w-full h-16 z-50 bg-[#B5CADE] rounded-t-xl mb-4">
           <div className="flex justify-between p-4 items-center">
             <p className="text-lg text-black">Editor</p>
