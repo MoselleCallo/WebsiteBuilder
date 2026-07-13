@@ -9,7 +9,7 @@ import Canvas from "@/components/Canvas";
 type EditorState = {
   aboutHeading: string;
   aboutDesc: string;
-  aboutLayout: "side" | "vertical";
+  aboutLayout: "side" | "vertical" | "cards";
   font: "inter" | "poppins" | "montserrat";
   theme: keyof typeof colorPalettes;
 
@@ -24,6 +24,7 @@ type OpenState =
   | "menu"
   | "section"
   | "view"
+  | "section"
   | null;
 
 export default function App() {

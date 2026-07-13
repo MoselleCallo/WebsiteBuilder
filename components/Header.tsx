@@ -9,12 +9,13 @@ type OpenState =
   | "menu"
   | "section"
   | "view"
+  | "section"
   | null;
 
 type EditorState = {
   aboutHeading: string;
   aboutDesc: string;
-  aboutLayout: "side" | "vertical";
+  aboutLayout: "side" | "vertical" | "cards";
   font: "inter" | "poppins" | "montserrat";
   theme: keyof typeof colorPalettes;
 

@@ -5,12 +5,22 @@ import { colorPalettes } from "@/app/theme";
 type EditorState = {
   aboutHeading: string;
   aboutDesc: string;
-  aboutLayout: "side" | "vertical";
+  aboutLayout: "side" | "vertical" | "cards";
   font: "inter" | "poppins" | "montserrat";
   theme: keyof typeof colorPalettes;
 
   logo: string | null;
   aboutSection: string | null;
+};
+
+const getLayout = { // continue when other features are completed
+  side: {
+    title: "flex-row items-center"
+  },
+  vertical: {
+    title: "flex-col text-center"
+  },
+  cards: "md: flex-col cols-3"
 };
 
 export default function Canvas({ editor, changeView }: { editor: EditorState; changeView: boolean; }) {

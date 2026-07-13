@@ -1,25 +1,25 @@
-'use client';
+"use client";
 import React from "react";
-import { colorPalettes } from '@/app/theme'; // CONTINUE COLOR PALLETE AND CLEAN YOUR PARAMETERS
+import { colorPalettes } from "@/app/theme"; // CONTINUE COLOR PALLETE AND CLEAN YOUR PARAMETERS
 
 type EditorState = {
   aboutHeading: string;
   aboutDesc: string;
-  aboutLayout: 'side' | 'vertical';
-  font: 'inter' | 'poppins' | 'montserrat';
+  aboutLayout: "side" | "vertical" | "cards";
+  font: "inter" | "poppins" | "montserrat";
   theme: keyof typeof colorPalettes;
-
   logo: string | null;
   aboutSection: string | null;
 };
 
 type OpenState =
-  | 'font'
-  | 'palette'
-  | 'page'
-  | 'menu'
-  | 'section'
-  | 'view'
+  | "font"
+  | "palette"
+  | "page"
+  | "menu"
+  | "section"
+  | "view"
+  | "section"
   | null;
 
 export default function Sidebar({
@@ -34,14 +34,14 @@ export default function Sidebar({
   setIsOpen: React.Dispatch<React.SetStateAction<OpenState>>;
 }) {
   const fonts = [
-    { name: 'Classic', value: 'inter' },
-    { name: 'Clean', value: 'montserrat' },
-    { name: 'Modern', value: 'poppins' },
+    { name: "Classic", value: "inter" },
+    { name: "Clean", value: "montserrat" },
+    { name: "Modern", value: "poppins" },
   ];
 
   const imageUpload = (
     e: React.ChangeEvent<HTMLInputElement>,
-    field: 'logo' | 'aboutSection'
+    field: "logo" | "aboutSection",
   ) => {
     const file = e.target.files?.[0];
 
@@ -107,7 +107,7 @@ export default function Sidebar({
                 {/* Select Bar */}
                 <button
                   onClick={() =>
-                    setIsOpen(isOpen === 'palette' ? null : 'palette')
+                    setIsOpen(isOpen === "palette" ? null : "palette")
                   }
                   className="w-full flex items-center justify-between px-2 py-2 bg-white/20 border border-black rounded-xl hover:bg-white/30 transition-all"
                 >
@@ -125,7 +125,7 @@ export default function Sidebar({
 
                   {/* Down Arrow */}
                   <svg
-                    className="w-5 h-5 text-gray-800"
+                    className={`w-5 h-5 text-gray-800 transition-transform duration-200 ${isOpen === "palette" ? "-scale-y-100" : ""}`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -142,9 +142,9 @@ export default function Sidebar({
                 <ul
                   className={`absolute w-full left-0 bg-white rounded-md shadow-md transition-all duration-300 ease-in-out origin-top
                   ${
-                    isOpen === 'palette'
-                      ? 'opacity-100 scale-y-100 translate-y-0 z-50'
-                      : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'
+                    isOpen === "palette"
+                      ? "opacity-100 scale-y-100 translate-y-0 z-50"
+                      : "opacity-0 scale-y-95 -translate-y-2 pointer-events-none"
                   }`}
                 >
                   {Object.keys(colorPalettes).map((palette) => (
@@ -153,7 +153,7 @@ export default function Sidebar({
                       onClick={() => {
                         setEditor((prev) => ({
                           ...prev,
-                          theme: palette as EditorState['theme'],
+                          theme: palette as EditorState["theme"],
                         }));
                         setIsOpen(null);
                       }}
@@ -181,21 +181,21 @@ export default function Sidebar({
               <div className="relative">
                 {/* Select Bar */}
                 <button
-                  onClick={() => setIsOpen(isOpen === 'font' ? null : 'font')}
+                  onClick={() => setIsOpen(isOpen === "font" ? null : "font")}
                   className="w-full flex items-center justify-between px-2 py-2 bg-white/20 border border-black rounded-xl hover:bg-white/30 transition-all"
                 >
                   <span className="text-[#334155] text-sm font-medium">
-                    {editor.font === 'inter'
-                      ? 'Classic'
-                      : editor.font === 'poppins'
-                      ? 'Modern'
-                      : 'Clean'}
+                    {editor.font === "inter"
+                      ? "Classic"
+                      : editor.font === "poppins"
+                        ? "Modern"
+                        : "Clean"}
                   </span>
 
                   {/* Down Arrow */}
                   <svg
                     className={`w-5 h-5 text-gray-800 transition-transform duration-200 ${
-                      isOpen ? '-scale-y-100' : ''
+                      isOpen === "font" ? "-scale-y-100" : ""
                     }`}
                     fill="none"
                     stroke="currentColor"
@@ -213,9 +213,9 @@ export default function Sidebar({
                 <ul
                   className={`absolute w-full left-0 bg-white rounded-md shadow-md transition-all duration-300 ease-in-out origin-top
                   ${
-                    isOpen === 'font'
-                      ? 'opacity-100 scale-y-100 translate-y-0'
-                      : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'
+                    isOpen === "font"
+                      ? "opacity-100 scale-y-100 translate-y-0"
+                      : "opacity-0 scale-y-95 -translate-y-2 pointer-events-none"
                   }`}
                 >
                   {fonts.map((f) => (
@@ -224,7 +224,7 @@ export default function Sidebar({
                       onClick={() => {
                         setEditor((prev) => ({
                           ...prev,
-                          font: f.value as EditorState['font'],
+                          font: f.value as EditorState["font"],
                         }));
                         setIsOpen(null);
                       }}
@@ -272,7 +272,7 @@ export default function Sidebar({
 
                       {/* Text */}
                       <span className="text-sm text-[#334155] font-medium">
-                        {editor.logo ? 'Uploaded' : 'Upload your logo'}
+                        {editor.logo ? "Uploaded" : "Upload your logo"}
                       </span>
                     </div>
 
@@ -299,7 +299,7 @@ export default function Sidebar({
                       type="file"
                       className="hidden"
                       accept="logo/*"
-                      onChange={(e) => imageUpload(e, 'logo')}
+                      onChange={(e) => imageUpload(e, "logo")}
                     />
                   </label>
                 </div>
@@ -380,29 +380,10 @@ export default function Sidebar({
 
           <hr />
 
-          <div>
+          <div className="space-y-2">
             {/* Body Page Tools */}
             <div className="flex justify-between items-center">
               <h1 className="text-md font-bold text-black">Body</h1>
-
-              <button className="flex items-center justify-center px-4 py-2 gap-2 bg-white/20 border border-black rounded-full hover:bg-white/30 transition-all">
-                <p className="text-gray-700 text-xs">About Me</p>
-
-                {/* Down Arrow */}
-                <svg
-                  className="w-5 h-5 text-gray-800"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
             </div>
 
             <div className="ml-4 mb-4 space-y-4">
@@ -433,7 +414,10 @@ export default function Sidebar({
                   <div className="flex items-center justify-between">
                     <div className="flex gap-4 items-center">
                       {/* Upward Icon */}
-                      <button className="p-1 rounded-full bg-[#ACBECE]">
+                      <button onClick={() =>
+                    setIsOpen(isOpen === "section" ? null : "section")
+                  }
+                  className={`p-1 rounded-full bg-[#ACBECE] transition-transform duration-200 ${isOpen === "section" ? "-scale-y-100" : ""}`}>
                         <svg
                           className="w-5 h-5 text-gray-800"
                           fill="none"
@@ -476,8 +460,8 @@ export default function Sidebar({
 
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-black">
-                      {' '}
-                      Layout{' '}
+                      {" "}
+                      Layout{" "}
                     </label>
 
                     <div className="flex gap-4">
@@ -485,34 +469,51 @@ export default function Sidebar({
                         onClick={(e) =>
                           setEditor((prev) => ({
                             ...prev,
-                            aboutLayout: 'side',
+                            aboutLayout: "side",
                           }))
                         }
                         className={`flex-1 p-2 rounded border ${
-                          editor.aboutLayout === 'side'
-                            ? 'bg-[#38BDF8] border-[#38BDF8]'
-                            : 'border-[#334155]'
+                          editor.aboutLayout === "side"
+                            ? "bg-[#38BDF8] border-[#38BDF8]"
+                            : "border-[#334155]"
                         }`}
                       >
-                        {' '}
-                        Side{' '}
+                        {" "}
+                        Side{" "}
                       </button>
 
                       <button
                         onClick={(e) =>
                           setEditor((prev) => ({
                             ...prev,
-                            aboutLayout: 'vertical',
+                            aboutLayout: "vertical",
                           }))
                         }
                         className={`flex-1 p-2 rounded border ${
-                          editor.aboutLayout === 'vertical'
-                            ? 'bg-[#38BDF8] border-[#38BDF8]'
-                            : 'border-[#334155]'
+                          editor.aboutLayout === "vertical"
+                            ? "bg-[#38BDF8] border-[#38BDF8]"
+                            : "border-[#334155]"
                         }`}
                       >
-                        {' '}
-                        Vertical{' '}
+                        {" "}
+                        Vertical{" "}
+                      </button>
+
+                      <button
+                        onClick={(e) =>
+                          setEditor((prev) => ({
+                            ...prev,
+                            aboutLayout: "cards",
+                          }))
+                        }
+                        className={`flex-1 p-2 rounded border ${
+                          editor.aboutLayout === "cards"
+                            ? "bg-[#38BDF8] border-[#38BDF8]"
+                            : "border-[#334155]"
+                        }`}
+                      >
+                        {" "}
+                        Cards{" "}
                       </button>
                     </div>
                   </div>
@@ -569,8 +570,8 @@ export default function Sidebar({
                         {/* Text */}
                         <span className="text-sm text-black font-medium">
                           {editor.aboutSection
-                            ? 'Uploaded'
-                            : 'Upload your image'}
+                            ? "Uploaded"
+                            : "Upload your image"}
                         </span>
                       </div>
 
@@ -597,7 +598,7 @@ export default function Sidebar({
                         type="file"
                         className="hidden"
                         accept="logo/*"
-                        onChange={(e) => imageUpload(e, 'aboutSection')}
+                        onChange={(e) => imageUpload(e, "aboutSection")}
                       />
                     </label>
                   </div>
