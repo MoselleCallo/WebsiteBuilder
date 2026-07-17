@@ -415,6 +415,7 @@ export default function Sidebar({
                       </svg>
                     </button>
 
+                    {/* TO BE EDITTED */}  
                     <ul
                       className={`absolute w-1/2 right-0 top-11 bg-white rounded-md shadow-md transition-all duration-300 ease-in-out origin-top
                   ${

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { colorPalettes } from "@/app/theme"; // CONTINUE COLOR PALLETE AND CLEAN YOUR PARAMETERS
 
 import Header from "@/components/Header";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/sidebar/Sidebar";
 import Canvas from "@/components/Canvas";
 
 type EditorState = {
