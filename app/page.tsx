@@ -25,6 +25,7 @@ type OpenState =
   | "section"
   | "view"
   | "section"
+  | "addSection"
   | null;
 
 export default function App() {

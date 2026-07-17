@@ -20,6 +20,7 @@ type OpenState =
   | "section"
   | "view"
   | "section"
+  | "addSection"
   | null;
 
 export default function Sidebar({
@@ -382,6 +383,7 @@ export default function Sidebar({
 
           <div className="space-y-2">
             {/* Body Page Tools */}
+            <div className="relative">
             <div className="flex justify-between items-center">
               <h1 className="text-md font-bold text-black">Body</h1>
             </div>
@@ -394,30 +396,65 @@ export default function Sidebar({
                   </label>
 
                   {/* Plus Icon */}
-                  <button className="flex items-center justify-center border-2 border-black w-4 h-4 rounded-full">
-                    <svg
-                      className="w-5 h-5 text-black"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="3.5"
-                      strokeLinecap="round"
+                    <button
+                      onClick={() =>
+                        setIsOpen(isOpen === "addSection" ? null : "addSection")
+                      }
+                      className="flex items-center justify-center border-2 border-black w-4 h-4 rounded-full"
                     >
-                      <line x1="12" y1="4" x2="12" y2="20" />
-                      <line x1="4" y1="12" x2="20" y2="12" />
-                    </svg>
-                  </button>
+                      <svg
+                        className={`w-5 h-5 text-black transition-transform duration-200 ${isOpen === "addSection" ? "rotate-45" : ""}`}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3.5"
+                        strokeLinecap="round"
+                      >
+                        <line x1="12" y1="4" x2="12" y2="20" />
+                        <line x1="4" y1="12" x2="20" y2="12" />
+                      </svg>
+                    </button>
+
+                    <ul
+                      className={`absolute w-1/2 right-0 top-11 bg-white rounded-md shadow-md transition-all duration-300 ease-in-out origin-top
+                  ${
+                    isOpen === "addSection"
+                      ? "opacity-100 scale-y-100 translate-y-0"
+                      : "opacity-0 scale-y-95 -translate-y-2 pointer-events-none"
+                  }`}
+                    >
+                      {fonts.map((f) => (
+                        <li
+                          key={f.value}
+                          onClick={() => {
+                            setEditor((prev) => ({
+                              ...prev,
+                              font: f.value as EditorState["font"],
+                            }));
+                            setIsOpen(null);
+                          }}
+                          className="cursor-pointer px-3 py-2 hover:bg-gray-100 hover:rounded-md"
+                        >
+                          {f.name}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
 
                 {/* Section Box Editor */}
-                <div className="rounded-md bg-[#B8CCDE] space-y-4 px-4 py-2">
+                <div
+                  className={`rounded-md bg-[#B8CCDE] space-y-4 px-4 py-2 overflow-hidden transition-all duration-300 ease-in-out ${isOpen === "section" ? "max-h-auto" : "max-h-10"}`}
+                >
                   <div className="flex items-center justify-between">
                     <div className="flex gap-4 items-center">
                       {/* Upward Icon */}
-                      <button onClick={() =>
-                    setIsOpen(isOpen === "section" ? null : "section")
-                  }
-                  className={`p-1 rounded-full bg-[#ACBECE] transition-transform duration-200 ${isOpen === "section" ? "-scale-y-100" : ""}`}>
+                      <button
+                        onClick={() =>
+                          setIsOpen(isOpen === "section" ? null : "section")
+                        }
+                        className={`p-1 rounded-full bg-[#ACBECE] transition-transform duration-200 ${isOpen === "section" ? "-scale-y-100" : ""}`}
+                      >
                         <svg
                           className="w-5 h-5 text-gray-800"
                           fill="none"
@@ -433,11 +470,9 @@ export default function Sidebar({
                         </svg>
                       </button>
 
-                      <input
-                        type="text"
-                        defaultValue="Intro"
-                        className=" w-2/3 flex items-center justify-between px-4 py-2 bg-[#ACBECE] rounded-xl hover:bg-white/30 transition-all text-gray-700 text-sm"
-                      />
+                      <span className="flex items-center justify-between rounded-xl hover:bg-white/30 transition-all text-gray-700 text-sm">
+                        HERO SECTION
+                      </span>
                     </div>
 
                     {/* delete Icon */}

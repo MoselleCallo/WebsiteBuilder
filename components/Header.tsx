@@ -10,6 +10,7 @@ type OpenState =
   | "section"
   | "view"
   | "section"
+  | "addSection"
   | null;
 
 type EditorState = {
