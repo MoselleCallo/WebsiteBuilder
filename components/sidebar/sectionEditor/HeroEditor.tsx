@@ -9,7 +9,8 @@ type EditorState = {
   font: "inter" | "poppins" | "montserrat";
   theme: keyof typeof colorPalettes;
   logo: string | null;
-  aboutSection: string | null;
+  aboutSection: string | null; 
+  section: "Hero" | "About";
 };
 
 type OpenState =

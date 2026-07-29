@@ -15,6 +15,7 @@ type EditorState = {
 
   logo: string | null;
   aboutSection: string | null;
+  section: "Hero" | "About";
 };
 
 type OpenState =
@@ -38,6 +39,7 @@ export default function App() {
 
     logo: null,
     aboutSection: null,
+    section: "Hero",
   });
 
   const [isOpen, setIsOpen] = useState<OpenState>(null);

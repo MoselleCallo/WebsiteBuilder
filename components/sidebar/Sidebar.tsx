@@ -14,6 +14,7 @@ type EditorState = {
   theme: keyof typeof colorPalettes;
   logo: string | null;
   aboutSection: string | null;
+  section: "Hero" | "About";
 };
 
 type OpenState =
@@ -44,21 +45,12 @@ export default function Sidebar({
     { name: "Modern", value: "poppins" },
   ];
 
-  const imageUpload = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    field: "logo" | "aboutSection",
-  ) => {
-    const file = e.target.files?.[0];
+  const hero = document.getElementById("hero");
 
-    if (!file) return;
-
-    const logoUrl = URL.createObjectURL(file);
-
-    setEditor((prev) => ({
-      ...prev,
-      [field]: logoUrl,
-    }));
-  };
+  const sections = [
+    { name: "Hero", value: hero },
+    { name: "About", value: "about" },
+  ];
 
   return (
     <>
@@ -159,19 +151,19 @@ export default function Sidebar({
                       : "opacity-0 scale-y-95 -translate-y-2 pointer-events-none"
                   }`}
                     >
-                      {fonts.map((f) => (
+                      {sections.map((s) => (
                         <li
-                          key={f.value}
+                          key={s.value}
                           onClick={() => {
                             setEditor((prev) => ({
                               ...prev,
-                              font: f.value as EditorState["font"],
+                              section: s.value as EditorState["section"],
                             }));
                             setIsOpen(null);
                           }}
                           className="cursor-pointer px-3 py-2 hover:bg-gray-100 hover:rounded-md"
                         >
-                          {f.name}
+                          {s.name}
                         </li>
                       ))}
                     </ul>

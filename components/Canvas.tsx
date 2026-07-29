@@ -11,6 +11,7 @@ type EditorState = {
 
   logo: string | null;
   aboutSection: string | null;
+  section: "Hero" | "About";
 };
 
 const getLayout = { // continue when other features are completed
