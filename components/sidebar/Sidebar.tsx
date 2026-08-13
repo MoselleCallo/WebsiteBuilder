@@ -14,6 +14,7 @@ type EditorState = {
   theme: keyof typeof colorPalettes;
   logo: string | null;
   aboutSection: string | null;
+  section: "Hero" | "About";
 };
 
 type OpenState =
@@ -27,38 +28,32 @@ type OpenState =
   | "addSection"
   | null;
 
+  type Section = {
+    id: string;
+    type: string;
+  };
+
+
 export default function Sidebar({
   editor,
   setEditor,
   isOpen,
   setIsOpen,
+  sections,
+  addSection,
 }: {
   editor: EditorState;
   setEditor: React.Dispatch<React.SetStateAction<EditorState>>;
   isOpen: OpenState;
   setIsOpen: React.Dispatch<React.SetStateAction<OpenState>>;
+  addSection: (type: string) => void;
+  sections: Section[];
 }) {
-  const fonts = [
-    { name: "Classic", value: "inter" },
-    { name: "Clean", value: "montserrat" },
-    { name: "Modern", value: "poppins" },
+
+  const sect = [
+    { name: "Hero", value: "hero" },
+    { name: "About", value: "about" },
   ];
-
-  const imageUpload = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    field: "logo" | "aboutSection",
-  ) => {
-    const file = e.target.files?.[0];
-
-    if (!file) return;
-
-    const logoUrl = URL.createObjectURL(file);
-
-    setEditor((prev) => ({
-      ...prev,
-      [field]: logoUrl,
-    }));
-  };
 
   return (
     <>
@@ -159,32 +154,37 @@ export default function Sidebar({
                       : "opacity-0 scale-y-95 -translate-y-2 pointer-events-none"
                   }`}
                     >
-                      {fonts.map((f) => (
+                      {sect.map((s) => (
                         <li
-                          key={f.value}
+                          key={s.value}
                           onClick={() => {
-                            setEditor((prev) => ({
-                              ...prev,
-                              font: f.value as EditorState["font"],
-                            }));
+                            addSection(s.value);
                             setIsOpen(null);
                           }}
                           className="cursor-pointer px-3 py-2 hover:bg-gray-100 hover:rounded-md"
                         >
-                          {f.name}
+                          {s.name}
                         </li>
                       ))}
                     </ul>
+
+                    {sections.map((s) => {
+                      if (s.type === "hero") {
+                        return (
+                          <HeroEditor
+                            key={s.id}
+                            editor={editor}
+                            setEditor={setEditor}
+                            isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                          />
+                        );
+                      }
+                    })}
                   </div>
                 </div>
 
                 {/* Section Box Editors */}
-                <HeroEditor
-                  editor={editor}
-                  setEditor={setEditor}
-                  isOpen={isOpen}
-                  setIsOpen={setIsOpen}
-                />
               </div>
             </div>
           </div>

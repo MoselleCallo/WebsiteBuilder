@@ -22,6 +22,7 @@ type EditorState = {
 
   logo: string | null;
   aboutSection: string | null;
+  section: "Hero" | "About";
 };
 export default function Header({
   changeView,
