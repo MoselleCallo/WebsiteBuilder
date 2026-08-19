@@ -28,27 +28,30 @@ type OpenState =
   | "addSection"
   | null;
 
+  type Section = {
+    id: string;
+    type: string;
+  };
+
+
 export default function Sidebar({
   editor,
   setEditor,
   isOpen,
   setIsOpen,
+  sections,
+  addSection,
 }: {
   editor: EditorState;
   setEditor: React.Dispatch<React.SetStateAction<EditorState>>;
   isOpen: OpenState;
   setIsOpen: React.Dispatch<React.SetStateAction<OpenState>>;
+  addSection: (type: string) => void;
+  sections: Section[];
 }) {
-  const fonts = [
-    { name: "Classic", value: "inter" },
-    { name: "Clean", value: "montserrat" },
-    { name: "Modern", value: "poppins" },
-  ];
 
-  const hero = document.getElementById("hero");
-
-  const sections = [
-    { name: "Hero", value: hero },
+  const sect = [
+    { name: "Hero", value: "hero" },
     { name: "About", value: "about" },
   ];
 
@@ -151,14 +154,11 @@ export default function Sidebar({
                       : "opacity-0 scale-y-95 -translate-y-2 pointer-events-none"
                   }`}
                     >
-                      {sections.map((s) => (
+                      {sect.map((s) => (
                         <li
                           key={s.value}
                           onClick={() => {
-                            setEditor((prev) => ({
-                              ...prev,
-                              section: s.value as EditorState["section"],
-                            }));
+                            addSection(s.value);
                             setIsOpen(null);
                           }}
                           className="cursor-pointer px-3 py-2 hover:bg-gray-100 hover:rounded-md"
@@ -172,11 +172,25 @@ export default function Sidebar({
 
                 {/* Section Box Editors */}
                 <HeroEditor
-                  editor={editor}
-                  setEditor={setEditor}
-                  isOpen={isOpen}
-                  setIsOpen={setIsOpen}
-                />
+                            editor={editor}
+                            setEditor={setEditor}
+                            isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                          />
+
+                {sections.map((s) => {
+                      if (s.type === "hero") {
+                        return (
+                          <HeroEditor
+                            key={s.id}
+                            editor={editor}
+                            setEditor={setEditor}
+                            isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                          />
+                        );
+                      }
+                    })}
               </div>
             </div>
           </div>

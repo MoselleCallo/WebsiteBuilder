@@ -9,7 +9,7 @@ type EditorState = {
   font: "inter" | "poppins" | "montserrat";
   theme: keyof typeof colorPalettes;
   logo: string | null;
-  aboutSection: string | null; 
+  aboutSection: string | null;
   section: "Hero" | "About";
 };
 
@@ -53,6 +53,7 @@ export default function HeroEditor({
 
   return (
     <div
+      id = "add-hero"
       className={`rounded-md bg-[#B8CCDE] space-y-4 px-4 py-2 overflow-hidden transition-all duration-300 ease-in-out ${isOpen === "section" ? "max-h-auto" : "max-h-10"}`}
     >
       <div className="flex items-center justify-between">

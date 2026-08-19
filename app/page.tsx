@@ -29,6 +29,11 @@ type OpenState =
   | "addSection"
   | null;
 
+  type Section = {
+    id: string;
+    type: string;
+  };
+
 export default function App() {
   const [editor, setEditor] = useState<EditorState>({
     aboutHeading: "LARGE HEADING HERE",
@@ -44,6 +49,16 @@ export default function App() {
 
   const [isOpen, setIsOpen] = useState<OpenState>(null);
   const [changeView, setChangeView] = useState(false);
+  const [sections, setSections] = useState<Section[]>([]);
+
+  const addSection = (type: string) => {
+  const newSection: Section = {
+    id: crypto.randomUUID(),
+    type: type,
+  };
+
+  setSections((prev) => [...prev, newSection]);
+};
 
   return (
     <main className="flex flex-col h-screen bg-[#09213D] overflow-hidden md:flex-row">
@@ -63,6 +78,8 @@ export default function App() {
         setEditor={setEditor}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
+        addSection={addSection}
+        sections={sections}
       />
     </main>
   );
