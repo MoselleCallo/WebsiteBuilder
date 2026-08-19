@@ -167,8 +167,18 @@ export default function Sidebar({
                         </li>
                       ))}
                     </ul>
+                  </div>
+                </div>
 
-                    {sections.map((s) => {
+                {/* Section Box Editors */}
+                <HeroEditor
+                            editor={editor}
+                            setEditor={setEditor}
+                            isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                          />
+
+                {sections.map((s) => {
                       if (s.type === "hero") {
                         return (
                           <HeroEditor
@@ -181,10 +191,6 @@ export default function Sidebar({
                         );
                       }
                     })}
-                  </div>
-                </div>
-
-                {/* Section Box Editors */}
               </div>
             </div>
           </div>
