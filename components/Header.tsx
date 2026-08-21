@@ -7,9 +7,8 @@ type OpenState =
   | "palette"
   | "page"
   | "menu"
-  | "section"
   | "view"
-  | "section"
+  | string
   | "addSection"
   | null;
 

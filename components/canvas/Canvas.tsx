@@ -96,7 +96,8 @@ export default function Canvas({ editor, changeView, sections }: { editor: Edito
       {/* Sections */}
       {sections.map((s) => {
         if (s.type === "hero")
-          return(<Hero editor={editor} changeView={changeView} />)
+          return(<Hero key={s.id}
+            editor={editor} changeView={changeView} />)
       })}
       </div>
     </div>

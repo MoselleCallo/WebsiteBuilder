@@ -18,9 +18,8 @@ type OpenState =
   | "palette"
   | "page"
   | "menu"
-  | "section"
   | "view"
-  | "section"
+  | string
   | "addSection"
   | null;
 
@@ -29,11 +28,13 @@ export default function HeroEditor({
   setEditor,
   isOpen,
   setIsOpen,
+  sectionId,
 }: {
   editor: EditorState;
   setEditor: React.Dispatch<React.SetStateAction<EditorState>>;
   isOpen: OpenState;
   setIsOpen: React.Dispatch<React.SetStateAction<OpenState>>;
+  sectionId: string;
 }) {
   const imageUpload = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -53,15 +54,14 @@ export default function HeroEditor({
 
   return (
     <div
-      id = "add-hero"
-      className={`rounded-md bg-[#B8CCDE] space-y-4 px-4 py-2 overflow-hidden transition-all duration-300 ease-in-out ${isOpen === "section" ? "max-h-auto" : "max-h-10"}`}
+      className={`rounded-md bg-[#B8CCDE] space-y-4 px-4 py-2 overflow-hidden transition-all duration-300 ease-in-out ${isOpen === sectionId ? "max-h-auto" : "max-h-10"}`}
     >
       <div className="flex items-center justify-between">
         <div className="flex gap-4 items-center">
           {/* Upward Icon */}
           <button
-            onClick={() => setIsOpen(isOpen === "section" ? null : "section")}
-            className={`p-1 rounded-full bg-[#ACBECE] transition-transform duration-200 ${isOpen === "section" ? "-scale-y-100" : ""}`}
+            onClick={() => setIsOpen(isOpen === sectionId ? null : sectionId)}
+            className={`p-1 rounded-full bg-[#ACBECE] transition-transform duration-200 ${isOpen === sectionId ? "-scale-y-100" : ""}`}
           >
             <svg
               className="w-5 h-5 text-gray-800"

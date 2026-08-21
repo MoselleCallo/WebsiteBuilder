@@ -22,9 +22,8 @@ type OpenState =
   | "palette"
   | "page"
   | "menu"
-  | "section"
   | "view"
-  | "section"
+  | string
   | "addSection"
   | null;
 
@@ -177,6 +176,7 @@ export default function Sidebar({
                         return (
                           <HeroEditor
                             key={s.id}
+                            sectionId={s.id}
                             editor={editor}
                             setEditor={setEditor}
                             isOpen={isOpen}

@@ -17,9 +17,8 @@ type OpenState = | "font"
   | "palette"
   | "page"
   | "menu"
-  | "section"
   | "view"
-  | "section"
+  | string
   | "addSection"
   | null;
 
