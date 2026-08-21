@@ -4,7 +4,7 @@ import { colorPalettes } from "@/app/theme"; // CONTINUE COLOR PALLETE AND CLEAN
 
 import Header from "@/components/Header";
 import Sidebar from "@/components/sidebar/Sidebar";
-import Canvas from "@/components/Canvas";
+import Canvas from "@/components/canvas/Canvas";
 
 type EditorState = {
   aboutHeading: string;
@@ -70,7 +70,7 @@ export default function App() {
           setIsOpen={setIsOpen}
           setEditor={setEditor}
         />
-        <Canvas editor={editor} changeView={changeView} />
+        <Canvas editor={editor} changeView={changeView} sections={sections}/>
       </div>
       
       <Sidebar
