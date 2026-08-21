@@ -10,7 +10,7 @@ type EditorState = {
   theme: keyof typeof colorPalettes;
   logo: string | null;
   aboutSection: string | null;
-  section: "Hero" | "About" | "Contact";
+  section: "Hero" | "About";
 };
 
 type OpenState =

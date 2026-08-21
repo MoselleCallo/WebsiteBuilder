@@ -7,7 +7,7 @@ import Hero from "./sections/Hero";
 type EditorState = {
   aboutHeading: string;
   aboutDesc: string;
-  aboutLayout: "side" | "vertical";
+  aboutLayout: "side" | "vertical" | "cards";
   font: "inter" | "poppins" | "montserrat";
   theme: keyof typeof colorPalettes;
 
@@ -15,7 +15,6 @@ type EditorState = {
   aboutSection: string | null;
   section: "Hero" | "About";
 };
-
   type Section = {
     id: string;
     type: string;
@@ -96,8 +95,7 @@ export default function Canvas({ editor, changeView, sections }: { editor: Edito
       {/* Sections */}
       {sections.map((s) => {
         if (s.type === "hero")
-          return(<Hero key={s.id}
-            editor={editor} changeView={changeView} />)
+          return(<Hero editor={editor} changeView={changeView} />)
       })}
       </div>
     </div>
