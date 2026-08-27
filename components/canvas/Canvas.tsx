@@ -7,7 +7,7 @@ import Hero from "./sections/Hero";
 type EditorState = {
   aboutHeading: string;
   aboutDesc: string;
-  aboutLayout: "side" | "vertical" | "cards";
+  aboutLayout: "side" | "vertical";
   font: "inter" | "poppins" | "montserrat";
   theme: keyof typeof colorPalettes;
 
