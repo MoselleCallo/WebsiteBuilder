@@ -2,15 +2,36 @@
 import React from "react";
 import { colorPalettes } from "@/app/theme";
 
+type Hero = {
+  heading: string;
+  desc: string;
+  layout: "side" | "vertical" | "cards";  
+  aboutSection: string | null;
+}
+
+type About = {
+   
+}
+
+type Projects = {
+
+}
+
+type Contact = {
+  
+}
+
 type EditorState = {
-  aboutHeading: string;
-  aboutDesc: string;
-  aboutLayout: "side" | "vertical" | "cards";
+  sections: {
+    hero: Hero;
+    about: About;
+    projects: Projects;
+    contact: Contact;
+  }
+
   font: "inter" | "poppins" | "montserrat";
   theme: keyof typeof colorPalettes;
   logo: string | null;
-  aboutSection: string | null;
-  section: "Hero" | "About";
 };
 
 type OpenState =
@@ -22,6 +43,12 @@ type OpenState =
   | string
   | "addSection"
   | null;
+
+  type SectionId = 
+    "hero" 
+    | "about"
+    | "projects"
+    | "contact";
 
 export default function HeroEditor({
   editor,
@@ -113,7 +140,7 @@ export default function HeroEditor({
               }))
             }
             className={`flex-1 p-2 rounded border ${
-              editor.aboutLayout === "side"
+              editor.sections.hero.layout === "side"
                 ? "bg-[#38BDF8] border-[#38BDF8]"
                 : "border-[#334155]"
             }`}
@@ -130,7 +157,7 @@ export default function HeroEditor({
               }))
             }
             className={`flex-1 p-2 rounded border ${
-              editor.aboutLayout === "vertical"
+              editor.sections.hero.layout === "vertical"
                 ? "bg-[#38BDF8] border-[#38BDF8]"
                 : "border-[#334155]"
             }`}
@@ -147,7 +174,7 @@ export default function HeroEditor({
               }))
             }
             className={`flex-1 p-2 rounded border ${
-              editor.aboutLayout === "cards"
+              editor.sections.hero.layout === "cards"
                 ? "bg-[#38BDF8] border-[#38BDF8]"
                 : "border-[#334155]"
             }`}
@@ -164,7 +191,7 @@ export default function HeroEditor({
         <input
           type="text"
           className="flex items-center justify-between px-4 py-2 w-4/5 bg-white/60 rounded-xl hover:bg-white/30 transition-all text-gray-700 text-sm"
-          value={editor.aboutHeading}
+          value={editor.sections.hero.heading}
           onChange={(e) =>
             setEditor((prev) => ({
               ...prev,
@@ -176,7 +203,7 @@ export default function HeroEditor({
         <textarea
           className="w-full items-center justify-between px-4 py-2 bg-white/60 rounded-xl hover:bg-white/30 transition-all text-gray-700 text-sm"
           rows={4}
-          value={editor.aboutDesc}
+          value={editor.sections.hero.desc}
           onChange={(e) =>
             setEditor((prev) => ({
               ...prev,
@@ -207,7 +234,7 @@ export default function HeroEditor({
 
             {/* Text */}
             <span className="text-sm text-black font-medium">
-              {editor.aboutSection ? "Uploaded" : "Upload your image"}
+              {editor.sections.hero.aboutSection ? "Uploaded" : "Upload your image"}
             </span>
           </div>
 

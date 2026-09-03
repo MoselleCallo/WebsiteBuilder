@@ -6,15 +6,37 @@ import ThemeEditor from "./ThemeEditor";
 import HeaderEditor from "./HeaderEditor";
 import HeroEditor from "./sectionEditor/HeroEditor";
 
+
+type Hero = {
+  heading: string;
+  desc: string;
+  layout: "side" | "vertical" | "cards";  
+  aboutSection: string | null;
+}
+
+type About = {
+   
+}
+
+type Projects = {
+
+}
+
+type Contact = {
+  
+}
+
 type EditorState = {
-  aboutHeading: string;
-  aboutDesc: string;
-  aboutLayout: "side" | "vertical" | "cards";
+  sections: {
+    hero: Hero;
+    about: About;
+    projects: Projects;
+    contact: Contact;
+  }
+
   font: "inter" | "poppins" | "montserrat";
   theme: keyof typeof colorPalettes;
   logo: string | null;
-  aboutSection: string | null;
-  section: "Hero" | "About";
 };
 
 type OpenState =
@@ -27,10 +49,11 @@ type OpenState =
   | "addSection"
   | null;
 
-  type Section = {
-    id: string;
-    type: string;
-  };
+  type SectionId = 
+    "hero" 
+    | "about"
+    | "projects"
+    | "contact";
 
 
 export default function Sidebar({
@@ -38,15 +61,11 @@ export default function Sidebar({
   setEditor,
   isOpen,
   setIsOpen,
-  sections,
-  addSection,
 }: {
   editor: EditorState;
   setEditor: React.Dispatch<React.SetStateAction<EditorState>>;
   isOpen: OpenState;
   setIsOpen: React.Dispatch<React.SetStateAction<OpenState>>;
-  addSection: (type: string) => void;
-  sections: Section[];
 }) {
 
   const sect = [

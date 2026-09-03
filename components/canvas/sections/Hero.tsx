@@ -2,17 +2,53 @@
 import React from "react";
 import { colorPalettes } from "@/app/theme";
 
+type Hero = {
+  heading: string;
+  desc: string;
+  layout: "side" | "vertical" | "cards";  
+  aboutSection: string | null;
+}
+
+type About = {
+   
+}
+
+type Projects = {
+
+}
+
+type Contact = {
+  
+}
+
 type EditorState = {
-  aboutHeading: string;
-  aboutDesc: string;
-  aboutLayout: "side" | "vertical" | "cards";
+  sections: {
+    hero: Hero;
+    about: About;
+    projects: Projects;
+    contact: Contact;
+  }
+
   font: "inter" | "poppins" | "montserrat";
   theme: keyof typeof colorPalettes;
-
   logo: string | null;
-  aboutSection: string | null;
-  section: "Hero" | "About";
 };
+
+type OpenState =
+  | "font"
+  | "palette"
+  | "page"
+  | "menu"
+  | "view"
+  | string
+  | "addSection"
+  | null;
+
+  type SectionId = 
+    "hero" 
+    | "about"
+    | "projects"
+    | "contact";
 
 export default function Hero({
   editor,
@@ -28,7 +64,7 @@ export default function Hero({
             ${
               changeView
                 ? "flex-col text-center"
-                : editor.aboutLayout === "side"
+                : editor.sections.hero.layout === "side"
                   ? "flex-row items-center"
                   : "flex-col text-center"
             }
@@ -37,22 +73,22 @@ export default function Hero({
         {/* Text Group */}
         <div className="flex-1">
           <h1 className="text-6xl font-black text-[var(--text-main)] leading-tight mb-4 uppercase">
-            {editor.aboutHeading}
+            {editor.sections.hero.heading}
           </h1>
-          <p className="text-[var(--text-muted)] text-lg">{editor.aboutDesc}</p>
+          <p className="text-[var(--text-muted)] text-lg">{editor.sections.hero.desc}</p>
         </div>
 
         {/* logo Wrapper */}
         <div
           className={`flex-1 ${
-            editor.aboutSection
+            editor.sections.hero.aboutSection
               ? "none"
               : "bg-gray-100 aspect-square rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300"
           }`}
         >
-          {editor.aboutSection ? (
+          {editor.sections.hero.aboutSection ? (
             <img
-              src={editor.aboutSection}
+              src={editor.sections.hero.aboutSection}
               alt="logo"
               className="object-contain"
             />

@@ -6,16 +6,36 @@ import Header from "@/components/Header";
 import Sidebar from "@/components/sidebar/Sidebar";
 import Canvas from "@/components/canvas/Canvas";
 
+type Hero = {
+  heading: string;
+  desc: string;
+  layout: "side" | "vertical" | "cards";  
+  aboutSection: string | null;
+}
+
+type About = {
+   
+}
+
+type Projects = {
+
+}
+
+type Contact = {
+  
+}
+
 type EditorState = {
-  aboutHeading: string;
-  aboutDesc: string;
-  aboutLayout: "side" | "vertical" | "cards";
+  sections: {
+    hero: Hero;
+    about: About;
+    projects: Projects;
+    contact: Contact;
+  }
+
   font: "inter" | "poppins" | "montserrat";
   theme: keyof typeof colorPalettes;
-
   logo: string | null;
-  aboutSection: string | null;
-  section: "Hero" | "About";
 };
 
 type OpenState =
@@ -28,36 +48,42 @@ type OpenState =
   | "addSection"
   | null;
 
-  type Section = {
-    id: string;
-    type: string;
-  };
+  type SectionId = 
+    "hero" 
+    | "about"
+    | "projects"
+    | "contact";
 
 export default function App() {
   const [editor, setEditor] = useState<EditorState>({
-    aboutHeading: "LARGE HEADING HERE",
-    aboutDesc: "Type your description here.",
-    aboutLayout: "side",
+    sections: {
+      hero: {
+        heading: "LARGE HEADING HERE",
+        desc: "Type your description here.",
+        layout: "side",
+        aboutSection: null,
+      },
+
+      about: {
+        
+      },
+
+      projects: {
+        
+      },
+
+      contact: {
+        
+      },
+    },
+    
     font: "inter",
     theme: "Professional",
-
     logo: null,
-    aboutSection: null,
-    section: "Hero",
   });
 
   const [isOpen, setIsOpen] = useState<OpenState>(null);
   const [changeView, setChangeView] = useState(false);
-  const [sections, setSections] = useState<Section[]>([]);
-
-  const addSection = (type: string) => {
-  const newSection: Section = {
-    id: crypto.randomUUID(),
-    type: type,
-  };
-
-  setSections((prev) => [...prev, newSection]);
-};
 
   return (
     <main className="flex flex-col h-screen bg-[#09213D] overflow-hidden md:flex-row">
@@ -69,7 +95,7 @@ export default function App() {
           setIsOpen={setIsOpen}
           setEditor={setEditor}
         />
-        <Canvas editor={editor} changeView={changeView} sections={sections}/>
+        <Canvas editor={editor} changeView={changeView}/>
       </div>
       
       <Sidebar
@@ -77,8 +103,6 @@ export default function App() {
         setEditor={setEditor}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        addSection={addSection}
-        sections={sections}
       />
     </main>
   );

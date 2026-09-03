@@ -2,18 +2,40 @@
 import React from "react";
 import { colorPalettes } from "@/app/theme"; // CONTINUE COLOR PALLETE AND CLEAN YOUR PARAMETERS
 
+type Hero = {
+  heading: string;
+  desc: string;
+  layout: "side" | "vertical" | "cards";  
+  aboutSection: string | null;
+}
+
+type About = {
+   
+}
+
+type Projects = {
+
+}
+
+type Contact = {
+  
+}
+
 type EditorState = {
-  aboutHeading: string;
-  aboutDesc: string;
-  aboutLayout: "side" | "vertical" | "cards";
+  sections: {
+    hero: Hero;
+    about: About;
+    projects: Projects;
+    contact: Contact;
+  }
+
   font: "inter" | "poppins" | "montserrat";
   theme: keyof typeof colorPalettes;
   logo: string | null;
-  aboutSection: string | null;
-  section: "Hero" | "About";
 };
 
-type OpenState = | "font"
+type OpenState =
+  | "font"
   | "palette"
   | "page"
   | "menu"
@@ -21,6 +43,12 @@ type OpenState = | "font"
   | string
   | "addSection"
   | null;
+
+  type SectionId = 
+    "hero" 
+    | "about"
+    | "projects"
+    | "contact";
 
 export default function ThemeEditor({
   editor,

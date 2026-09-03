@@ -4,21 +4,53 @@ import { colorPalettes } from "@/app/theme";
 
 import Hero from "./sections/Hero";
 
+type Hero = {
+  heading: string;
+  desc: string;
+  layout: "side" | "vertical" | "cards";  
+  aboutSection: string | null;
+}
+
+type About = {
+   
+}
+
+type Projects = {
+
+}
+
+type Contact = {
+  
+}
+
 type EditorState = {
-  aboutHeading: string;
-  aboutDesc: string;
-  aboutLayout: "side" | "vertical" | "cards";
+  sections: {
+    hero: Hero;
+    about: About;
+    projects: Projects;
+    contact: Contact;
+  }
+
   font: "inter" | "poppins" | "montserrat";
   theme: keyof typeof colorPalettes;
-
   logo: string | null;
-  aboutSection: string | null;
-  section: "Hero" | "About";
 };
-  type Section = {
-    id: string;
-    type: string;
-  };
+
+type OpenState =
+  | "font"
+  | "palette"
+  | "page"
+  | "menu"
+  | "view"
+  | string
+  | "addSection"
+  | null;
+
+  type SectionId = 
+    "hero" 
+    | "about"
+    | "projects"
+    | "contact";
 
 const getLayout = { // continue when other features are completed
   side: {
@@ -30,7 +62,7 @@ const getLayout = { // continue when other features are completed
   cards: "md: flex-col cols-3"
 };
 
-export default function Canvas({ editor, changeView, sections }: { editor: EditorState; changeView: boolean; sections: Section[]; }) {
+export default function Canvas({ editor, changeView }: { editor: EditorState; changeView: boolean; }) {
   const fontOptions = {
     inter: "font-inter",
     poppins: "font-poppins",
@@ -93,10 +125,7 @@ export default function Canvas({ editor, changeView, sections }: { editor: Edito
         </header>
 
       {/* Sections */}
-      {sections.map((s) => {
-        if (s.type === "hero")
-          return(<Hero editor={editor} changeView={changeView} />)
-      })}
+      <Hero editor={editor} changeView={changeView} />
       </div>
     </div>
   );
