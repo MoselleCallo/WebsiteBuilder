@@ -6,7 +6,7 @@ type Hero = {
   heading: string;
   desc: string;
   layout: "side" | "vertical" | "cards";  
-  aboutSection: string | null;
+  image: string | null;
 }
 
 type About = {
@@ -33,22 +33,6 @@ type EditorState = {
   theme: keyof typeof colorPalettes;
   logo: string | null;
 };
-
-type OpenState =
-  | "font"
-  | "palette"
-  | "page"
-  | "menu"
-  | "view"
-  | string
-  | "addSection"
-  | null;
-
-  type SectionId = 
-    "hero" 
-    | "about"
-    | "projects"
-    | "contact";
 
 export default function Hero({
   editor,
@@ -81,14 +65,14 @@ export default function Hero({
         {/* logo Wrapper */}
         <div
           className={`flex-1 ${
-            editor.sections.hero.aboutSection
+            editor.sections.hero.image
               ? "none"
               : "bg-gray-100 aspect-square rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300"
           }`}
         >
-          {editor.sections.hero.aboutSection ? (
+          {editor.sections.hero.image ? (
             <img
-              src={editor.sections.hero.aboutSection}
+              src={editor.sections.hero.image}
               alt="logo"
               className="object-contain"
             />

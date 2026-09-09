@@ -11,7 +11,7 @@ type Hero = {
   heading: string;
   desc: string;
   layout: "side" | "vertical" | "cards";  
-  aboutSection: string | null;
+  image: string | null;
 }
 
 type About = {
@@ -45,16 +45,8 @@ type OpenState =
   | "page"
   | "menu"
   | "view"
-  | string
-  | "addSection"
+  | "heroSection"
   | null;
-
-  type SectionId = 
-    "hero" 
-    | "about"
-    | "projects"
-    | "contact";
-
 
 export default function Sidebar({
   editor,
@@ -145,13 +137,10 @@ export default function Sidebar({
 
                     {/* Plus Icon */}
                     <button
-                      onClick={() =>
-                        setIsOpen(isOpen === "addSection" ? null : "addSection")
-                      }
                       className="flex items-center justify-center border-2 border-black w-4 h-4 rounded-full"
                     >
                       <svg
-                        className={`w-5 h-5 text-black transition-transform duration-200 ${isOpen === "addSection" ? "rotate-45" : ""}`}
+                        className="w-5 h-5 text-black transition-transform duration-200"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -162,48 +151,17 @@ export default function Sidebar({
                         <line x1="4" y1="12" x2="20" y2="12" />
                       </svg>
                     </button>
-
-                    {/* TO BE EDITTED */}
-                    <ul
-                      className={`absolute w-1/2 right-0 top-11 bg-white rounded-md shadow-md transition-all duration-300 ease-in-out origin-top
-                  ${
-                    isOpen === "addSection"
-                      ? "opacity-100 scale-y-100 translate-y-0"
-                      : "opacity-0 scale-y-95 -translate-y-2 pointer-events-none"
-                  }`}
-                    >
-                      {sect.map((s) => (
-                        <li
-                          key={s.value}
-                          onClick={() => {
-                            addSection(s.value);
-                            setIsOpen(null);
-                          }}
-                          className="cursor-pointer px-3 py-2 hover:bg-gray-100 hover:rounded-md"
-                        >
-                          {s.name}
-                        </li>
-                      ))}
-                    </ul>
                   </div>
                 </div>
 
                 {/* Section Box Editors */}
                 
-                {sections.map((s) => {
-                      if (s.type === "hero") {
-                        return (
                           <HeroEditor
-                            key={s.id}
-                            sectionId={s.id}
                             editor={editor}
                             setEditor={setEditor}
                             isOpen={isOpen}
                             setIsOpen={setIsOpen}
                           />
-                        );
-                      }
-                    })}
               </div>
             </div>
           </div>

@@ -6,7 +6,7 @@ type Hero = {
   heading: string;
   desc: string;
   layout: "side" | "vertical" | "cards";  
-  aboutSection: string | null;
+  image: string | null;
 }
 
 type About = {
@@ -40,15 +40,8 @@ type OpenState =
   | "page"
   | "menu"
   | "view"
-  | string
-  | "addSection"
+  | "heroSection"
   | null;
-
-  type SectionId = 
-    "hero" 
-    | "about"
-    | "projects"
-    | "contact";
 
 export default function ThemeEditor({
   editor,

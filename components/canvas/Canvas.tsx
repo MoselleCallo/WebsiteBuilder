@@ -8,7 +8,7 @@ type Hero = {
   heading: string;
   desc: string;
   layout: "side" | "vertical" | "cards";  
-  aboutSection: string | null;
+  image: string | null;
 }
 
 type About = {
@@ -35,22 +35,6 @@ type EditorState = {
   theme: keyof typeof colorPalettes;
   logo: string | null;
 };
-
-type OpenState =
-  | "font"
-  | "palette"
-  | "page"
-  | "menu"
-  | "view"
-  | string
-  | "addSection"
-  | null;
-
-  type SectionId = 
-    "hero" 
-    | "about"
-    | "projects"
-    | "contact";
 
 const getLayout = { // continue when other features are completed
   side: {

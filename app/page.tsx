@@ -10,7 +10,7 @@ type Hero = {
   heading: string;
   desc: string;
   layout: "side" | "vertical" | "cards";  
-  aboutSection: string | null;
+  image: string | null;
 }
 
 type About = {
@@ -44,15 +44,8 @@ type OpenState =
   | "page"
   | "menu"
   | "view"
-  | string
-  | "addSection"
+  | "heroSection"
   | null;
-
-  type SectionId = 
-    "hero" 
-    | "about"
-    | "projects"
-    | "contact";
 
 export default function App() {
   const [editor, setEditor] = useState<EditorState>({
@@ -61,7 +54,7 @@ export default function App() {
         heading: "LARGE HEADING HERE",
         desc: "Type your description here.",
         layout: "side",
-        aboutSection: null,
+        image: null,
       },
 
       about: {

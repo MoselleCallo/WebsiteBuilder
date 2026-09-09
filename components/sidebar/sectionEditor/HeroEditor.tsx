@@ -6,7 +6,7 @@ type Hero = {
   heading: string;
   desc: string;
   layout: "side" | "vertical" | "cards";  
-  aboutSection: string | null;
+  image: string | null;
 }
 
 type About = {
@@ -40,55 +40,51 @@ type OpenState =
   | "page"
   | "menu"
   | "view"
-  | string
-  | "addSection"
+  | "heroSection"
   | null;
-
-  type SectionId = 
-    "hero" 
-    | "about"
-    | "projects"
-    | "contact";
 
 export default function HeroEditor({
   editor,
   setEditor,
   isOpen,
   setIsOpen,
-  sectionId,
 }: {
   editor: EditorState;
   setEditor: React.Dispatch<React.SetStateAction<EditorState>>;
   isOpen: OpenState;
   setIsOpen: React.Dispatch<React.SetStateAction<OpenState>>;
-  sectionId: string;
 }) {
   const imageUpload = (
     e: React.ChangeEvent<HTMLInputElement>,
-    field: "logo" | "aboutSection",
   ) => {
     const file = e.target.files?.[0];
 
     if (!file) return;
 
-    const logoUrl = URL.createObjectURL(file);
+    const imageUrl = URL.createObjectURL(file);
 
     setEditor((prev) => ({
-      ...prev,
-      [field]: logoUrl,
+        ...prev,
+          sections: {
+            ...prev.sections,
+            hero: {
+              ...prev.sections.hero,
+              image: imageUrl,
+            }
+          }
     }));
-  };
+  }
 
   return (
     <div
-      className={`rounded-md bg-[#B8CCDE] space-y-4 px-4 py-2 overflow-hidden transition-all duration-300 ease-in-out ${isOpen === sectionId ? "max-h-auto" : "max-h-10"}`}
+      className={`rounded-md bg-[#B8CCDE] space-y-4 px-4 py-2 overflow-hidden transition-all duration-300 ease-in-out ${isOpen === "heroSection" ? "max-h-screen" : "max-h-10"}`}
     >
       <div className="flex items-center justify-between">
         <div className="flex gap-4 items-center">
           {/* Upward Icon */}
           <button
-            onClick={() => setIsOpen(isOpen === sectionId ? null : sectionId)}
-            className={`p-1 rounded-full bg-[#ACBECE] transition-transform duration-200 ${isOpen === sectionId ? "-scale-y-100" : ""}`}
+            onClick={() => setIsOpen(isOpen === "heroSection" ? null : "heroSection")}
+            className={`p-1 rounded-full bg-[#ACBECE] transition-transform duration-200 ${isOpen === "heroSection" ? "-scale-y-100" : ""}`}
           >
             <svg
               className="w-5 h-5 text-gray-800"
@@ -136,8 +132,12 @@ export default function HeroEditor({
             onClick={(e) =>
               setEditor((prev) => ({
                 ...prev,
-                aboutLayout: "side",
-              }))
+                sections: {
+                  ...prev.sections, 
+                    hero: {
+                      ...prev.sections.hero,
+                      layout: "side",
+            },},}))
             }
             className={`flex-1 p-2 rounded border ${
               editor.sections.hero.layout === "side"
@@ -153,7 +153,13 @@ export default function HeroEditor({
             onClick={(e) =>
               setEditor((prev) => ({
                 ...prev,
-                aboutLayout: "vertical",
+                sections: {
+                  ...prev.sections,
+                  hero: {
+                    ...prev.sections.hero,
+                    layout: "vertical",
+                  },
+                },
               }))
             }
             className={`flex-1 p-2 rounded border ${
@@ -170,7 +176,13 @@ export default function HeroEditor({
             onClick={(e) =>
               setEditor((prev) => ({
                 ...prev,
-                aboutLayout: "cards",
+                sections: {
+                  ...prev.sections,
+                  hero: {
+                    ...prev.sections.hero,
+                    layout: "cards",
+                  }
+                }
               }))
             }
             className={`flex-1 p-2 rounded border ${
@@ -195,7 +207,13 @@ export default function HeroEditor({
           onChange={(e) =>
             setEditor((prev) => ({
               ...prev,
-              aboutHeading: e.target.value,
+              sections: {
+                ...prev.sections,
+                hero: {
+                  ...prev.sections.hero,
+                    heading: e.target.value,
+                },
+              },
             }))
           }
         />
@@ -207,7 +225,13 @@ export default function HeroEditor({
           onChange={(e) =>
             setEditor((prev) => ({
               ...prev,
-              aboutDesc: e.target.value,
+              sections: {
+                ...prev.sections,
+                hero:{
+                ...prev.sections.hero,
+                desc: e.target.value,
+                },
+              },
             }))
           }
         ></textarea>
@@ -234,12 +258,12 @@ export default function HeroEditor({
 
             {/* Text */}
             <span className="text-sm text-black font-medium">
-              {editor.sections.hero.aboutSection ? "Uploaded" : "Upload your image"}
+              {editor.sections.hero.image ? "Uploaded" : "Upload your image"}
             </span>
           </div>
 
           {/* Checkmark Icon (Right) */}
-          {editor.logo ? (
+          {editor.sections.hero.image ? (
             <svg
               className="w-5 h-5 text-gray-600"
               fill="none"
@@ -260,8 +284,8 @@ export default function HeroEditor({
             id="image-upload"
             type="file"
             className="hidden"
-            accept="logo/*"
-            onChange={(e) => imageUpload(e, "aboutSection")}
+            accept="image/*"
+            onChange={imageUpload}
           />
         </label>
       </div>

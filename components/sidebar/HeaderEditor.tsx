@@ -6,7 +6,7 @@ type Hero = {
   heading: string;
   desc: string;
   layout: "side" | "vertical" | "cards";  
-  aboutSection: string | null;
+  image: string | null;
 }
 
 type About = {
@@ -34,22 +34,6 @@ type EditorState = {
   logo: string | null;
 };
 
-type OpenState =
-  | "font"
-  | "palette"
-  | "page"
-  | "menu"
-  | "view"
-  | string
-  | "addSection"
-  | null;
-
-  type SectionId = 
-    "hero" 
-    | "about"
-    | "projects"
-    | "contact";
-
 export default function HeaderEditor({
   editor,
   setEditor,
@@ -59,7 +43,6 @@ export default function HeaderEditor({
 }) {
   const imageUpload = (
     e: React.ChangeEvent<HTMLInputElement>,
-    field: "logo" | "aboutSection",
   ) => {
     const file = e.target.files?.[0];
 
@@ -69,7 +52,7 @@ export default function HeaderEditor({
 
     setEditor((prev) => ({
       ...prev,
-      [field]: logoUrl,
+      logo: logoUrl,
     }));
   };
 
@@ -133,8 +116,8 @@ export default function HeaderEditor({
                   id="logo-upload"
                   type="file"
                   className="hidden"
-                  accept="logo/*"
-                  onChange={(e) => imageUpload(e, "logo")}
+                  accept="image/*"
+                  onChange={imageUpload}
                 />
               </label>
             </div>

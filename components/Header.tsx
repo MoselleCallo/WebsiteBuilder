@@ -2,27 +2,48 @@
 import React from "react";
 import { colorPalettes } from "@/app/theme";
 
+
+type Hero = {
+  heading: string;
+  desc: string;
+  layout: "side" | "vertical" | "cards";  
+  image: string | null;
+}
+
+type About = {
+   
+}
+
+type Projects = {
+
+}
+
+type Contact = {
+  
+}
+
+type EditorState = {
+  sections: {
+    hero: Hero;
+    about: About;
+    projects: Projects;
+    contact: Contact;
+  }
+
+  font: "inter" | "poppins" | "montserrat";
+  theme: keyof typeof colorPalettes;
+  logo: string | null;
+};
+
 type OpenState =
   | "font"
   | "palette"
   | "page"
   | "menu"
   | "view"
-  | string
-  | "addSection"
+  | "heroSection"
   | null;
 
-type EditorState = {
-  aboutHeading: string;
-  aboutDesc: string;
-  aboutLayout: "side" | "vertical" | "cards";
-  font: "inter" | "poppins" | "montserrat";
-  theme: keyof typeof colorPalettes;
-
-  logo: string | null;
-  aboutSection: string | null;
-  section: "Hero" | "About";
-};
 export default function Header({
   changeView,
   setChangeView,
@@ -40,7 +61,13 @@ export default function Header({
     setChangeView(!changeView);
     setEditor((prev) => ({
       ...prev,
-      aboutLayout: "side",
+      sections: {
+        ...prev.sections,
+        hero: {
+          ...prev.sections.hero,
+          layout: "side",
+        }
+      }
     }));
   };
 
@@ -50,7 +77,7 @@ export default function Header({
         {/* Left side */}
         <div className="flex gap-4 items-center">
           <input
-            type-text
+            type="text"
             className="bg-transparent text-white w-1/4 px-2"
             defaultValue="Untitled1"
           />
@@ -61,9 +88,9 @@ export default function Header({
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               className="w-6 h-6"
             >
               <path d="M12 18h6a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2" />
