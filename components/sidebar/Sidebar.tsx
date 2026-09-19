@@ -5,6 +5,7 @@ import { colorPalettes } from "@/app/theme"; // CONTINUE COLOR PALLETE AND CLEAN
 import ThemeEditor from "./ThemeEditor";
 import HeaderEditor from "./HeaderEditor";
 import HeroEditor from "./sectionEditor/HeroEditor";
+import AboutEditor from "./sectionEditor/AboutEditor";
 
 
 type Hero = {
@@ -15,7 +16,10 @@ type Hero = {
 }
 
 type About = {
-   
+  heading: string;
+  desc: string;
+  layout: "side" | "vertical" | "side-reverse";  
+  image: string | null;   
 }
 
 type Projects = {
@@ -46,6 +50,7 @@ type OpenState =
   | "menu"
   | "view"
   | "heroSection"
+  | "aboutSection"
   | null;
 
 export default function Sidebar({
@@ -53,11 +58,15 @@ export default function Sidebar({
   setEditor,
   isOpen,
   setIsOpen,
+  layoutIsActive,
+  setLayout,
 }: {
   editor: EditorState;
   setEditor: React.Dispatch<React.SetStateAction<EditorState>>;
   isOpen: OpenState;
   setIsOpen: React.Dispatch<React.SetStateAction<OpenState>>;
+  layoutIsActive: boolean;
+  setLayout: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
 
   const sect = [
@@ -161,6 +170,15 @@ export default function Sidebar({
                             setEditor={setEditor}
                             isOpen={isOpen}
                             setIsOpen={setIsOpen}
+                          />
+
+                          <AboutEditor
+                            editor={editor}
+                            setEditor={setEditor}
+                            isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                            layoutIsActive={layoutIsActive}
+                            setLayout={setLayout}
                           />
               </div>
             </div>

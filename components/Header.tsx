@@ -11,7 +11,10 @@ type Hero = {
 }
 
 type About = {
-   
+   heading: string;
+  desc: string;
+  layout: "side" | "vertical" | "side-reverse";  
+  image: string | null;
 }
 
 type Projects = {
@@ -42,6 +45,7 @@ type OpenState =
   | "menu"
   | "view"
   | "heroSection"
+  | "aboutSection"
   | null;
 
 export default function Header({

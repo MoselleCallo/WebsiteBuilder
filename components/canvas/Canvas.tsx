@@ -3,6 +3,7 @@ import React from "react";
 import { colorPalettes } from "@/app/theme";
 
 import Hero from "./sections/Hero";
+import About from "./sections/About";
 
 type Hero = {
   heading: string;
@@ -12,7 +13,10 @@ type Hero = {
 }
 
 type About = {
-   
+  heading: string;
+  desc: string;
+  layout: "side" | "vertical" | "side-reverse";  
+  image: string | null;   
 }
 
 type Projects = {
@@ -46,7 +50,15 @@ const getLayout = { // continue when other features are completed
   cards: "md: flex-col cols-3"
 };
 
-export default function Canvas({ editor, changeView }: { editor: EditorState; changeView: boolean; }) {
+export default function Canvas({
+  editor,
+  changeView,
+  layoutIsActive,
+}: {
+  editor: EditorState;
+  changeView: boolean;
+  layoutIsActive: boolean;
+}) {
   const fontOptions = {
     inter: "font-inter",
     poppins: "font-poppins",
@@ -110,6 +122,7 @@ export default function Canvas({ editor, changeView }: { editor: EditorState; ch
 
       {/* Sections */}
       <Hero editor={editor} changeView={changeView} />
+      <About editor={editor} changeView={changeView} layoutIsActive={layoutIsActive}/>
       </div>
     </div>
   );

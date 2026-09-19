@@ -14,6 +14,10 @@ type Hero = {
 }
 
 type About = {
+  heading: string;
+  desc: string;
+  layout: "side" | "vertical" | "side-reverse";  
+  image: string | null;
    
 }
 
@@ -45,6 +49,7 @@ type OpenState =
   | "menu"
   | "view"
   | "heroSection"
+  | "aboutSection"
   | null;
 
 export default function App() {
@@ -58,7 +63,10 @@ export default function App() {
       },
 
       about: {
-        
+        heading: "LARGE HEADING HERE",
+        desc: "Type your description here.",
+        layout: "side",
+        image: null,
       },
 
       projects: {
@@ -77,6 +85,7 @@ export default function App() {
 
   const [isOpen, setIsOpen] = useState<OpenState>(null);
   const [changeView, setChangeView] = useState(false);
+  const [layoutIsActive, setLayout] = useState(false);
 
   return (
     <main className="flex flex-col h-screen bg-[#09213D] overflow-hidden md:flex-row">
@@ -88,7 +97,11 @@ export default function App() {
           setIsOpen={setIsOpen}
           setEditor={setEditor}
         />
-        <Canvas editor={editor} changeView={changeView}/>
+        <Canvas
+          editor={editor}
+          changeView={changeView}
+          layoutIsActive={layoutIsActive}
+        />
       </div>
       
       <Sidebar
@@ -96,6 +109,8 @@ export default function App() {
         setEditor={setEditor}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
+        layoutIsActive={layoutIsActive}
+        setLayout={setLayout}
       />
     </main>
   );

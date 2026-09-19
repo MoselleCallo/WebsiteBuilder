@@ -10,7 +10,10 @@ type Hero = {
 }
 
 type About = {
-   
+  heading: string;
+  desc: string;
+  layout: "side" | "vertical" | "side-reverse";
+  image: string | null;   
 }
 
 type Projects = {
