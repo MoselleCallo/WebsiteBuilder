@@ -81,17 +81,17 @@ export default function Canvas({
           "--text-onPrimary": currentPalette.textOnPrimary,
         } as React.CSSProperties
       }
-      className="p-12 overflow-y-auto h-screen"
+      className="px-12 overflow-y-auto h-screen"
     >
       <div
-        className={`rounded-xl mx-auto bg-[var(--color-main)] ${fontOptions[editor.font]}
+        className={`relative items-start rounded-xl mx-auto bg-[var(--color-main)] ${fontOptions[editor.font]}
         ${
           changeView
             ? "w-[375px]" // Device frame dimensions for mobile
             : "w-full" // Native full dimensions for desktop
         } `}
       >
-        <header className="relative fixed top-0 w-full h-18 z-50 bg-[var(--color-main)] rounded-t-xl shadow-2xl items-center">
+        <header className="absolute top-8 left-1/2 -translate-x-1/2 rounded-full w-3/4 h-16 z-50 bg-black shadow-2xl items-center">
           <div className="flex justify-between p-4 items-center">
             {/* Logo Container */}
             <div className="items-center">
