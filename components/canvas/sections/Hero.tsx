@@ -47,18 +47,18 @@ export default function Hero({
   return (
     <>
       <div
-        className={`bg-[var(--color-main)] text-[var(--text-main)] p-12 flex gap-10 w-full rounded-t-xl
+        className={`bg-[var(--color-main)] text-[var(--text-main)] flex w-full rounded-t-xl
             ${
               changeView
                 ? "flex-col text-center"
                 : editor.sections.hero.layout === "side"
-                  ? "flex-row items-center"
+                  ? "flex-row items-start"
                   : "flex-col text-center"
             }
           `}
       >
         {/* Text Group */}
-        <div className="flex-1">
+        <div className="flex-1 px-12 pt-32 pb-32">
           <h1 className="text-6xl font-black text-[var(--text-main)] leading-tight mb-4 uppercase">
             {editor.sections.hero.heading}
           </h1>
