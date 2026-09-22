@@ -5,7 +5,7 @@ import { colorPalettes } from "@/app/theme";
 type Hero = {
   heading: string;
   desc: string;
-  layout: "side" | "vertical" | "cards";
+  layout: "side" | "vertical";
   image: string | null;
 };
 
@@ -16,7 +16,14 @@ type About = {
   image: string | null;
 };
 
-type Projects = {};
+type Projects = {
+  layout: "side" | "vertical" | "side-reverse" | "cards";
+  cards: {
+    title: string;
+    desc: string;
+    image: string | null;
+  };
+};
 
 type Contact = {};
 
@@ -41,6 +48,7 @@ type OpenState =
   | "view"
   | "heroSection"
   | "aboutSection"
+  | "projectsSection"
   | null;
 
 export default function AboutEditor({

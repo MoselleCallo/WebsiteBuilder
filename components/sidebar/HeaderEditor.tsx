@@ -5,7 +5,7 @@ import { colorPalettes } from "@/app/theme";
 type Hero = {
   heading: string;
   desc: string;
-  layout: "side" | "vertical" | "cards";  
+  layout: "side" | "vertical";
   image: string | null;
 }
 
@@ -17,7 +17,12 @@ type About = {
 }
 
 type Projects = {
-
+  layout: "side" | "vertical" | "side-reverse" | "cards";
+  cards: {
+    title: string;
+    desc: string;
+    image: string | null;
+  };
 }
 
 type Contact = {

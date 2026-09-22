@@ -6,29 +6,32 @@ import ThemeEditor from "./ThemeEditor";
 import HeaderEditor from "./HeaderEditor";
 import HeroEditor from "./sectionEditor/HeroEditor";
 import AboutEditor from "./sectionEditor/AboutEditor";
-
+import ProjectsEditor from "./sectionEditor/ProjectsEditor";
 
 type Hero = {
   heading: string;
   desc: string;
-  layout: "side" | "vertical" | "cards";  
+  layout: "side" | "vertical";
   image: string | null;
-}
+};
 
 type About = {
   heading: string;
   desc: string;
-  layout: "side" | "vertical" | "side-reverse";  
-  image: string | null;   
-}
+  layout: "side" | "vertical" | "side-reverse";
+  image: string | null;
+};
 
 type Projects = {
+  layout: "side" | "vertical" | "side-reverse" | "cards";
+  cards: {
+    title: string;
+    desc: string;
+    image: string | null;
+  };
+};
 
-}
-
-type Contact = {
-  
-}
+type Contact = {};
 
 type EditorState = {
   sections: {
@@ -36,7 +39,7 @@ type EditorState = {
     about: About;
     projects: Projects;
     contact: Contact;
-  }
+  };
 
   font: "inter" | "poppins" | "montserrat";
   theme: keyof typeof colorPalettes;
@@ -51,6 +54,7 @@ type OpenState =
   | "view"
   | "heroSection"
   | "aboutSection"
+  | "projectsSection"
   | null;
 
 export default function Sidebar({
@@ -68,11 +72,6 @@ export default function Sidebar({
   layoutIsActive: boolean;
   setLayout: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-
-  const sect = [
-    { name: "Hero", value: "hero" },
-    { name: "About", value: "about" },
-  ];
 
   return (
     <>
@@ -138,27 +137,34 @@ export default function Sidebar({
               </div>
 
               <div className="ml-4 mt-2 mb-4 space-y-4">
-                    <label className="text-sm font-bold text-black">
-                      Section
-                    </label>
+                <label className="text-sm font-bold text-black">Section</label>
 
                 {/* Section Box Editors */}
-                
-                          <HeroEditor
-                            editor={editor}
-                            setEditor={setEditor}
-                            isOpen={isOpen}
-                            setIsOpen={setIsOpen}
-                          />
 
-                          <AboutEditor
-                            editor={editor}
-                            setEditor={setEditor}
-                            isOpen={isOpen}
-                            setIsOpen={setIsOpen}
-                            layoutIsActive={layoutIsActive}
-                            setLayout={setLayout}
-                          />
+                <HeroEditor
+                  editor={editor}
+                  setEditor={setEditor}
+                  isOpen={isOpen}
+                  setIsOpen={setIsOpen}
+                />
+
+                <AboutEditor
+                  editor={editor}
+                  setEditor={setEditor}
+                  isOpen={isOpen}
+                  setIsOpen={setIsOpen}
+                  layoutIsActive={layoutIsActive}
+                  setLayout={setLayout}
+                />
+
+                <ProjectsEditor
+                  editor={editor}
+                  setEditor={setEditor}
+                  isOpen={isOpen}
+                  setIsOpen={setIsOpen}
+                  layoutIsActive={layoutIsActive}
+                  setLayout={setLayout}
+                />
               </div>
             </div>
           </div>

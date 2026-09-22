@@ -8,7 +8,7 @@ import About from "./sections/About";
 type Hero = {
   heading: string;
   desc: string;
-  layout: "side" | "vertical" | "cards";  
+  layout: "side" | "vertical";
   image: string | null;
 }
 
@@ -20,7 +20,12 @@ type About = {
 }
 
 type Projects = {
-
+  layout: "side" | "vertical" | "side-reverse" | "cards";
+  cards: {
+    title: string;
+    desc: string;
+    image: string | null;
+  };
 }
 
 type Contact = {
@@ -38,16 +43,6 @@ type EditorState = {
   font: "inter" | "poppins" | "montserrat";
   theme: keyof typeof colorPalettes;
   logo: string | null;
-};
-
-const getLayout = { // continue when other features are completed
-  side: {
-    title: "flex-row items-center"
-  },
-  vertical: {
-    title: "flex-col text-center"
-  },
-  cards: "md: flex-col cols-3"
 };
 
 export default function Canvas({

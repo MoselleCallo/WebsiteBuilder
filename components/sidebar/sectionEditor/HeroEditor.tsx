@@ -5,7 +5,7 @@ import { colorPalettes } from "@/app/theme";
 type Hero = {
   heading: string;
   desc: string;
-  layout: "side" | "vertical" | "cards";  
+  layout: "side" | "vertical";
   image: string | null;
 }
 
@@ -17,7 +17,12 @@ type About = {
 }
 
 type Projects = {
-
+  layout: "side" | "vertical" | "side-reverse" | "cards";
+  cards: {
+    title: string;
+    desc: string;
+    image: string | null;
+  };
 }
 
 type Contact = {
@@ -45,6 +50,7 @@ type OpenState =
   | "view"
   | "heroSection"
   | "aboutSection"
+  | "projectsSection"
   | null;
 
 export default function HeroEditor({
@@ -157,29 +163,6 @@ export default function HeroEditor({
           >
             {" "}
             Vertical{" "}
-          </button>
-
-          <button
-            onClick={(e) =>
-              setEditor((prev) => ({
-                ...prev,
-                sections: {
-                  ...prev.sections,
-                  hero: {
-                    ...prev.sections.hero,
-                    layout: "cards",
-                  }
-                }
-              }))
-            }
-            className={`flex-1 p-2 rounded border ${
-              editor.sections.hero.layout === "cards"
-                ? "bg-[#38BDF8] border-[#38BDF8]"
-                : "border-[#334155]"
-            }`}
-          >
-            {" "}
-            Cards{" "}
           </button>
         </div>
       </div>
