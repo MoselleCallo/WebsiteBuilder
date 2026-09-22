@@ -137,31 +137,10 @@ export default function Sidebar({
                 <h1 className="text-md font-bold text-black">Body</h1>
               </div>
 
-              <div className="ml-4 mb-4 space-y-4">
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center space-y-2">
+              <div className="ml-4 mt-2 mb-4 space-y-4">
                     <label className="text-sm font-bold text-black">
                       Section
                     </label>
-
-                    {/* Plus Icon */}
-                    <button
-                      className="flex items-center justify-center border-2 border-black w-4 h-4 rounded-full"
-                    >
-                      <svg
-                        className="w-5 h-5 text-black transition-transform duration-200"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="3.5"
-                        strokeLinecap="round"
-                      >
-                        <line x1="12" y1="4" x2="12" y2="20" />
-                        <line x1="4" y1="12" x2="20" y2="12" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
 
                 {/* Section Box Editors */}
                 
