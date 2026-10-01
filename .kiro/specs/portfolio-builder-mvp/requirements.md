@@ -20,8 +20,8 @@ Publishing and hosting are explicitly out of scope for this MVP and are noted as
 - **About_Section**: The section containing a heading, a description, and an optional image.
 - **Projects_Section**: The section containing an ordered list of Project_Item entries.
 - **Project_Item**: A single project entry with the fields title, description, image, and link.
-- **Contact_Section**: The section containing contact information (email, and optional phone and location) and social links.
-- **Social_Link**: An entry with a platform (from a fixed set) and a url.
+- **Contact_Section**: The section containing contact information (email, phone, and location) and social links.
+- **Social_Link**: An entry with a platform and a url.
 - **Section**: Any one of Hero_Section, About_Section, Projects_Section, or Contact_Section.
 - **Layout_Selector**: The control that lets a User choose among curated per-section arrangements.
 - **Theme_System**: The set of three curated themes (Professional, Warm, Cool) and font choices (Inter, Poppins, Montserrat).
@@ -31,6 +31,7 @@ Publishing and hosting are explicitly out of scope for this MVP and are noted as
 - **Shared_Types_Module**: A single TypeScript module that defines the canonical types (Editor_State, section types, open-state, etc.) consumed across the codebase.
 - **Data_URI**: A base64-encoded representation of an image embedded directly in HTML.
 - **Viewport_Mode**: One of the three preview widths: mobile (< 640px), tablet (640-1024px), or desktop (> 1024px).
+- **Floating_Navigation_Bar**: A navigation element that remains visible at all scroll positions and contains links that scroll the page to each content Section.
 - **User**: The person authoring a portfolio using the Portfolio_Builder.
 
 ## Requirements
@@ -53,9 +54,9 @@ Publishing and hosting are explicitly out of scope for this MVP and are noted as
 
 #### Acceptance Criteria
 
-1. THE Hero_Section SHALL provide an editable single-line Name field accepting 0 to 100 characters.
-2. THE Hero_Section SHALL provide an editable single-line Title field accepting 0 to 100 characters.
-3. THE Hero_Section SHALL provide an editable single-line tagline field accepting 0 to 200 characters.
+1. THE Hero_Section SHALL provide an editable single-line Name field accepting 0 to 50 characters.
+2. THE Hero_Section SHALL provide an editable single-line Title field accepting 0 to 50 characters.
+3. THE Hero_Section SHALL provide an editable single-line tagline field accepting 0 to 100 characters.
 4. THE Hero_Section SHALL provide a profile photo field that accepts image file types only.
 5. WHEN a User edits the Name field, THE Canvas SHALL update the rendered Hero_Section Name to display the current field value within 200 milliseconds.
 6. WHEN a User edits the Title field, THE Canvas SHALL update the rendered Hero_Section Title to display the current field value within 200 milliseconds.
@@ -100,13 +101,14 @@ Publishing and hosting are explicitly out of scope for this MVP and are noted as
 
 #### Acceptance Criteria
 
-1. WHEN a User adds a Social_Link, THE Contact_Section SHALL append the Social_Link to the social links list, up to a maximum of 10 Social_Links.
+1. WHEN a User adds a Social_Link, THE Contact_Section SHALL append the Social_Link to the social links list.
 2. WHEN a User removes a Social_Link, THE Contact_Section SHALL delete that Social_Link from the social links list.
-3. THE Social_Link SHALL provide a platform value selected from a fixed set consisting of GitHub, LinkedIn, and X/Twitter, and THE Contact_Section SHALL reject any platform value not in this fixed set.
+3. THE Social_Link SHALL provide an editable platform name field accepting any value up to 100 characters.
 4. THE Social_Link SHALL provide an editable url value with a maximum length of 2048 characters.
 5. IF a Social_Link url does not match a valid http or https URL pattern, THEN THE Editor SHALL mark the url as invalid and display an indication to the User that the url is invalid, while retaining the entered url value.
 6. IF a Social_Link url is marked invalid, THEN THE Canvas SHALL render the Contact_Section without a link for that Social_Link.
 7. WHEN a portfolio is exported, IF a Social_Link url is marked invalid, THEN THE Exporter SHALL omit that Social_Link from the exported output.
+8. WHERE a Social_Link platform name does not match a recognized platform (e.g. GitHub, LinkedIn, X/Twitter, Instagram, YouTube, Dribbble, Behance, Medium), THE Canvas SHALL render the Social_Link displaying the entered platform name as a text label alongside the URL rather than a platform icon.
 
 ### Requirement 6: Edit Contact Information
 
@@ -114,7 +116,7 @@ Publishing and hosting are explicitly out of scope for this MVP and are noted as
 
 #### Acceptance Criteria
 
-1. THE Contact_Section SHALL provide editable fields for a required email, an optional phone, and an optional location, where each field accepts up to 254 characters.
+1. THE Contact_Section SHALL provide editable fields for a required email and optional phone, where each field accepts up to 254 characters.
 2. WHEN a User edits the email, phone, or location field, THE Canvas SHALL update the rendered Contact_Section to reflect the new value within 200 milliseconds.
 3. IF the phone field is empty, THEN THE Canvas SHALL render the Contact_Section without a phone region.
 4. IF the location field is empty, THEN THE Canvas SHALL render the Contact_Section without a location region.
@@ -127,7 +129,7 @@ Publishing and hosting are explicitly out of scope for this MVP and are noted as
 
 #### Acceptance Criteria
 
-1. THE Layout_Selector SHALL offer at least two named curated arrangements for each Section that supports layout selection.
+1. THE Layout_Selector SHALL offer exactly three named arrangements for Hero_Section, About_Section, and Contact_Section: "side" (content left, image right), "side-reverse" (image left, content right), and "vertical" (stacked, centered). THE Projects_Section layout SHALL be fixed to a "cards" grid arrangement; THE Layout_Selector SHALL be rendered for the Projects_Section with the "side", "side-reverse", and "vertical" options visually disabled and the "cards" option shown as active, and SHALL display a text label indicating that this section uses a cards-only layout.
 2. WHEN a User selects one of the offered arrangements for a Section, THE Canvas SHALL render that Section using the selected arrangement within 500 milliseconds and SHALL indicate the selected arrangement as active in the Layout_Selector.
 3. THE Portfolio_Builder SHALL apply each layout selection to a single Section independently, leaving the arrangement of all other Sections unchanged.
 4. WHILE no User selection has been made for a Section that supports layout selection, THE Canvas SHALL render that Section using that Section's default arrangement.
@@ -211,7 +213,21 @@ Publishing and hosting are explicitly out of scope for this MVP and are noted as
 4. THE Exported_Page SHALL render all portfolio content when opened directly from the file system without a running server and without issuing any network request to load CSS or images.
 5. THE Exporter SHALL escape the HTML special characters (&, <, >, ", ') in user-provided text content so that field values containing HTML markup are rendered as literal text rather than interpreted as markup.
 6. THE Exporter SHALL exclude editor placeholder text from the Exported_Page such that fields left at their default placeholder value produce no corresponding text in the Exported_Page.
-7. IF a social or project link URL does not match a valid http or https URL pattern, THEN THE Exporter SHALL omit that link from the Exported_Page while retaining all other content.
+7. IF a social or project link URL does not match a valid http or https URL pattern, THEN THE Exporter SHALL display a warning listing each invalid URL and prompt the User to choose whether to proceed with the export (omitting those invalid links) or cancel the export to correct the links. IF the User chooses to proceed, THEN THE Exporter SHALL generate the Exported_Page omitting the invalid links. IF the User chooses to cancel, THEN THE Exporter SHALL abort the export and return the User to the Editor without generating a file.
+
+### Requirement 14: Floating Navigation Bar
+
+**User Story:** As a User, I want a floating navigation bar on my portfolio, so that visitors can jump to any section from anywhere on the page.
+
+#### Acceptance Criteria
+
+1. THE Canvas SHALL render a Floating_Navigation_Bar that is visible at all scroll positions within the portfolio.
+2. THE Floating_Navigation_Bar SHALL contain one navigation link per Section that is present in the portfolio (Hero, About, Projects, Contact — only sections with content).
+3. WHEN a visitor clicks a navigation link in the Floating_Navigation_Bar, THE Canvas SHALL smoothly scroll the portfolio to the top of the corresponding Section.
+4. THE Exported_Page SHALL include a Floating_Navigation_Bar that is visible at all scroll positions.
+5. WHEN a visitor clicks a navigation link in the Exported_Page Floating_Navigation_Bar, THE Exported_Page SHALL smoothly scroll to the top of the corresponding Section.
+6. WHERE a Section has no user-entered content, THE Floating_Navigation_Bar SHALL omit the link for that Section in both the Canvas and the Exported_Page.
+7. THE Floating_Navigation_Bar SHALL apply the currently selected Theme palette so that its colors remain consistent with the portfolio design.
 
 ## Out of Scope
 
