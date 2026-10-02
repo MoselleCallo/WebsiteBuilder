@@ -132,8 +132,6 @@ export default function Sidebar({
                             setEditor={setEditor}
                             isOpen={isOpen}
                             setIsOpen={setIsOpen}
-                            layoutIsActive={layoutIsActive}
-                            setLayout={setLayout}
                           />
               </div>
             </div>

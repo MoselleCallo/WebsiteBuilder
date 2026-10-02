@@ -1,6 +1,7 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { EditorState } from "@/types";
+import { readFileAsDataURI } from "@/utils/imageUpload";
 
 export default function HeaderEditor({
   editor,
@@ -9,18 +10,23 @@ export default function HeaderEditor({
   editor: EditorState;
   setEditor: React.Dispatch<React.SetStateAction<EditorState>>;
 }) {
-  const imageUpload = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const file = e.target.files?.[0];
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
+  const imageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (!file) return;
 
-    const logoUrl = URL.createObjectURL(file);
+    setUploadError(null);
+    const result = await readFileAsDataURI(file);
+
+    if ("error" in result) {
+      setUploadError(result.error);
+      return;
+    }
 
     setEditor((prev) => ({
       ...prev,
-      logo: logoUrl,
+      logo: result.dataUri,
     }));
   };
 
@@ -88,6 +94,11 @@ export default function HeaderEditor({
                   onChange={imageUpload}
                 />
               </label>
+
+              {/* Inline upload error */}
+              {uploadError && (
+                <p className="text-red-600 text-xs mt-1">{uploadError}</p>
+              )}
             </div>
           </div>
 

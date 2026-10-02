@@ -87,8 +87,8 @@ export default function Canvas({
         </header>
 
       {/* Sections */}
-      <HeroSection editor={editor} changeView={changeView} />
-      <About editor={editor} changeView={changeView} layoutIsActive={layoutIsActive}/>
+      <HeroSection editor={editor} />
+      <About editor={editor} />
       </div>
     </div>
   );

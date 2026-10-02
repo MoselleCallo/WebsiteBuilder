@@ -38,22 +38,22 @@ This plan brings the Portfolio Builder MVP from its current state (working Hero 
   - After migration, run `npx tsc --noEmit` and resolve all TypeScript errors before proceeding
   - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5_
 
-- [ ] 4. Migrate image uploads to the Data URI pipeline
-  - [ ] 4.1 Create a shared `readFileAsDataURI` helper inside `utils/imageUpload.ts` that wraps `FileReader.readAsDataURL` in a Promise, validates MIME type via `isImageMimeType` and size via `isImageSizeOk` before reading, and returns `{ dataUri: string } | { error: string }`
+- [x] 4. Migrate image uploads to the Data URI pipeline
+  - [x] 4.1 Create a shared `readFileAsDataURI` helper inside `utils/imageUpload.ts` that wraps `FileReader.readAsDataURL` in a Promise, validates MIME type via `isImageMimeType` and size via `isImageSizeOk` before reading, and returns `{ dataUri: string } | { error: string }`
     - `utils/` and `types/` are new top-level directories being created in this project. Add them at the workspace root alongside `app/` and `components/` per the design spec.
-  - [ ] 4.2 Update `components/sidebar/HeaderEditor.tsx` logo upload to use `readFileAsDataURI`; show an inline error message string below the upload control on failure; store the Data URI in `editor.logo`
-  - [ ] 4.3 Update `components/sidebar/sectionEditor/HeroEditor.tsx` photo upload to use `readFileAsDataURI`; show inline error on failure; store Data URI in `editor.sections.hero.photo`
-  - [ ] 4.4 Update `components/sidebar/sectionEditor/AboutEditor.tsx` image upload to use `readFileAsDataURI`; show inline error on failure; store Data URI in `editor.sections.about.image`
+  - [x] 4.2 Update `components/sidebar/HeaderEditor.tsx` logo upload to use `readFileAsDataURI`; show an inline error message string below the upload control on failure; store the Data URI in `editor.logo`
+  - [x] 4.3 Update `components/sidebar/sectionEditor/HeroEditor.tsx` photo upload to use `readFileAsDataURI`; show inline error on failure; store Data URI in `editor.sections.hero.photo`
+  - [x] 4.4 Update `components/sidebar/sectionEditor/AboutEditor.tsx` image upload to use `readFileAsDataURI`; show inline error on failure; store Data URI in `editor.sections.about.image`
   - Each upload control tracks `uploadError: string | null` in local component state (not in `EditorState`)
   - _Requirements: 2.4, 2.9, 3.1, 12.1, 12.2, 12.3, 12.4_
 
-- [ ] 5. Update HeroEditor and Hero canvas section for new fields
-  - [ ] 5.1 Rewrite `components/sidebar/sectionEditor/HeroEditor.tsx` to expose three separate text inputs: Name (`maxLength={50}`, maps to `hero.name`), Title (`maxLength={50}`, maps to `hero.title`), and Tagline (`maxLength={100}`, maps to `hero.tagline`)
+- [x] 5. Update HeroEditor and Hero canvas section for new fields
+  - [x] 5.1 Rewrite `components/sidebar/sectionEditor/HeroEditor.tsx` to expose three separate text inputs: Name (`maxLength={50}`, maps to `hero.name`), Title (`maxLength={50}`, maps to `hero.title`), and Tagline (`maxLength={100}`, maps to `hero.tagline`)
     - Replace the old `heading`/`desc` inputs with these three fields
     - Update the layout selector to show three equal buttons: Side / Vertical / Side-Reverse (remove the Cards button); active state is derived from `editor.sections.hero.layout === "<value>"`
     - _Requirements: 2.1, 2.2, 2.3, 7.1_
 
-  - [ ] 5.2 Rewrite `components/canvas/sections/Hero.tsx` to read `hero.name`, `hero.title`, `hero.tagline`, `hero.photo` from `EditorState`
+  - [x] 5.2 Rewrite `components/canvas/sections/Hero.tsx` to read `hero.name`, `hero.title`, `hero.tagline`, `hero.photo` from `EditorState`
     - Render the name as the large `<h1>`, title below it, tagline below title
     - If name is empty, render an italicized muted placeholder text "Your Name" in the name region; same pattern for title and tagline
     - Support all three layouts: `"side"` (text left, photo right), `"vertical"` (stacked, text centered), `"side-reverse"` (photo left, text right)
@@ -61,11 +61,11 @@ This plan brings the Portfolio Builder MVP from its current state (working Hero 
     - If `hero.photo` is null, render a dashed placeholder box in the photo region
     - _Requirements: 2.1–2.12, 7.1, 7.2_
 
-- [ ] 6. Update AboutEditor and About canvas section
-  - [ ] 6.1 Rewrite `components/sidebar/sectionEditor/AboutEditor.tsx` to remove `layoutIsActive` and `setLayout` props entirely; derive all layout button active states solely from `editor.sections.about.layout`; clicking "Side" sets layout to `"side"`, "Side-Reverse" sets to `"side-reverse"`, "Vertical" sets to `"vertical"` — no separate boolean flag
+- [x] 6. Update AboutEditor and About canvas section
+  - [x] 6.1 Rewrite `components/sidebar/sectionEditor/AboutEditor.tsx` to remove `layoutIsActive` and `setLayout` props entirely; derive all layout button active states solely from `editor.sections.about.layout`; clicking "Side" sets layout to `"side"`, "Side-Reverse" sets to `"side-reverse"`, "Vertical" sets to `"vertical"` — no separate boolean flag
     - _Requirements: 3.1, 7.1_
 
-  - [ ] 6.2 Update `components/canvas/sections/About.tsx` to remove the `layoutIsActive` prop; read `editor.sections.about.layout` directly to determine flex direction; all three layout variants (`"side"`, `"side-reverse"`, `"vertical"`) handled with conditional Tailwind classes
+  - [x] 6.2 Update `components/canvas/sections/About.tsx` to remove the `layoutIsActive` prop; read `editor.sections.about.layout` directly to determine flex direction; all three layout variants (`"side"`, `"side-reverse"`, `"vertical"`) handled with conditional Tailwind classes
     - _Requirements: 3.1–3.5, 7.1, 7.2_
 
 - [ ] 7. Implement ProjectsEditor and Projects canvas section
