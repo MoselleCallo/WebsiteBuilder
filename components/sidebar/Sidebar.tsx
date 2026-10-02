@@ -7,6 +7,8 @@ import ThemeEditor from "./ThemeEditor";
 import HeaderEditor from "./HeaderEditor";
 import HeroEditor from "./sectionEditor/HeroEditor";
 import AboutEditor from "./sectionEditor/AboutEditor";
+import ProjectsEditor from "./sectionEditor/ProjectsEditor";
+import ContactEditor from "./sectionEditor/ContactEditor";
 
 export default function Sidebar({
   editor,
@@ -119,20 +121,32 @@ export default function Sidebar({
                 </div>
 
                 {/* Section Box Editors */}
-                
-                          <HeroEditor
-                            editor={editor}
-                            setEditor={setEditor}
-                            isOpen={isOpen}
-                            setIsOpen={setIsOpen}
-                          />
 
-                          <AboutEditor
-                            editor={editor}
-                            setEditor={setEditor}
-                            isOpen={isOpen}
-                            setIsOpen={setIsOpen}
-                          />
+                <HeroEditor
+                  editor={editor}
+                  setEditor={setEditor}
+                  isOpen={isOpen}
+                  setIsOpen={setIsOpen}
+                />
+
+                <AboutEditor
+                  editor={editor}
+                  setEditor={setEditor}
+                  isOpen={isOpen}
+                  setIsOpen={setIsOpen}
+                />
+
+                <ProjectsEditor editor={editor}
+                  setEditor={setEditor}
+                  isOpen={isOpen}
+                  setIsOpen={setIsOpen}
+                />
+
+                <ContactEditor editor={editor}
+                  setEditor={setEditor}
+                  isOpen={isOpen}
+                  setIsOpen={setIsOpen}
+                />
               </div>
             </div>
           </div>

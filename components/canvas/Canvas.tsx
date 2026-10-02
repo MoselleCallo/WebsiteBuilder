@@ -5,6 +5,8 @@ import { EditorState, OpenState } from "@/types";
 
 import HeroSection from "./sections/Hero";
 import About from "./sections/About";
+import Projects from "./sections/Projects";
+import Contact from "./sections/Contact";
 
 const getLayout = { // continue when other features are completed
   side: {
@@ -89,6 +91,8 @@ export default function Canvas({
       {/* Sections */}
       <HeroSection editor={editor} />
       <About editor={editor} />
+      <Projects editor={editor} />
+      <Contact editor={editor} />
       </div>
     </div>
   );

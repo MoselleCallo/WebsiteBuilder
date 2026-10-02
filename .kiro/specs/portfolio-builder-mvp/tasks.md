@@ -68,22 +68,22 @@ This plan brings the Portfolio Builder MVP from its current state (working Hero 
   - [x] 6.2 Update `components/canvas/sections/About.tsx` to remove the `layoutIsActive` prop; read `editor.sections.about.layout` directly to determine flex direction; all three layout variants (`"side"`, `"side-reverse"`, `"vertical"`) handled with conditional Tailwind classes
     - _Requirements: 3.1–3.5, 7.1, 7.2_
 
-- [ ] 7. Implement ProjectsEditor and Projects canvas section
-  - [ ] 7.1 Implement `components/sidebar/sectionEditor/ProjectsEditor.tsx`
+- [x] 7. Implement ProjectsEditor and Projects canvas section
+  - [x] 7.1 Implement `components/sidebar/sectionEditor/ProjectsEditor.tsx`
     - "Add Project" button appends a new `ProjectItem` with `id: crypto.randomUUID()` and all string fields as empty strings, null image
     - Render each project as a collapsible card (controlled by local open state per item) with: Title input (`maxLength={100}`), Description textarea (`maxLength={500}`), Image upload using `readFileAsDataURI` with inline error, Link input with inline validation indicator (red border + error text beneath when non-empty and `!isValidUrl(link)`)
     - Delete button on each card removes the item by `id` from the `items` array
     - Layout selector shows four options (Side, Side-Reverse, Vertical, Cards) — the first three are visually greyed out and non-interactive; Cards is shown as active; a text label beneath reads "Projects always use cards layout"
     - _Requirements: 4.1, 4.2, 4.3, 4.8, 7.1, 12.1–12.4_
 
-  - [ ] 7.2 Implement `components/canvas/sections/Projects.tsx`
+  - [x] 7.2 Implement `components/canvas/sections/Projects.tsx`
     - If `items.length === 0`, render an empty fragment (nothing visible in canvas)
     - Otherwise render a responsive grid: `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6`
     - Each card: image (if present, no placeholder), title (if present), description (if present), link rendered as `<a>` button only when `isValidUrl(link)` is true
     - _Requirements: 4.4, 4.5, 4.6, 4.7_
 
-- [ ] 8. Implement ContactEditor and Contact canvas section
-  - [ ] 8.1 Implement `components/sidebar/sectionEditor/ContactEditor.tsx`
+- [x] 8. Implement ContactEditor and Contact canvas section
+  - [x] 8.1 Implement `components/sidebar/sectionEditor/ContactEditor.tsx`
     - Email input (`maxLength={254}`) with inline validation indicator: shows error when non-empty and `!isValidEmail(email)`
     - Phone input (`maxLength={254}`, optional)
     - Location input (`maxLength={254}`, optional)
@@ -91,7 +91,7 @@ This plan brings the Portfolio Builder MVP from its current state (working Hero 
     - Each social link entry: Platform input (`maxLength={100}`) + URL input with inline validation indicator (red border + error text when non-empty and `!isValidUrl(url)`) + delete button
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 6.1, 6.5_
 
-  - [ ] 8.2 Implement `components/canvas/sections/Contact.tsx`
+  - [x] 8.2 Implement `components/canvas/sections/Contact.tsx`
     - Render email region only when email is non-empty (omit region if empty, regardless of validation state)
     - Render phone region only when non-empty
     - Render location region only when non-empty
