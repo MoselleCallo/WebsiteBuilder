@@ -1,44 +1,10 @@
 "use client";
 import React from "react";
 import { colorPalettes } from "@/app/theme";
+import { EditorState, OpenState } from "@/types";
 
-import Hero from "./sections/Hero";
+import HeroSection from "./sections/Hero";
 import About from "./sections/About";
-
-type Hero = {
-  heading: string;
-  desc: string;
-  layout: "side" | "vertical" | "cards";  
-  image: string | null;
-}
-
-type About = {
-  heading: string;
-  desc: string;
-  layout: "side" | "vertical" | "side-reverse";  
-  image: string | null;   
-}
-
-type Projects = {
-
-}
-
-type Contact = {
-  
-}
-
-type EditorState = {
-  sections: {
-    hero: Hero;
-    about: About;
-    projects: Projects;
-    contact: Contact;
-  }
-
-  font: "inter" | "poppins" | "montserrat";
-  theme: keyof typeof colorPalettes;
-  logo: string | null;
-};
 
 const getLayout = { // continue when other features are completed
   side: {
@@ -121,7 +87,7 @@ export default function Canvas({
         </header>
 
       {/* Sections */}
-      <Hero editor={editor} changeView={changeView} />
+      <HeroSection editor={editor} changeView={changeView} />
       <About editor={editor} changeView={changeView} layoutIsActive={layoutIsActive}/>
       </div>
     </div>

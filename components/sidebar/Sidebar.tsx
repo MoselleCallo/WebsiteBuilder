@@ -1,57 +1,12 @@
 "use client";
 import React from "react";
 import { colorPalettes } from "@/app/theme"; // CONTINUE COLOR PALLETE AND CLEAN YOUR PARAMETERS
+import { EditorState, OpenState } from "@/types";
 
 import ThemeEditor from "./ThemeEditor";
 import HeaderEditor from "./HeaderEditor";
 import HeroEditor from "./sectionEditor/HeroEditor";
 import AboutEditor from "./sectionEditor/AboutEditor";
-
-
-type Hero = {
-  heading: string;
-  desc: string;
-  layout: "side" | "vertical" | "cards";  
-  image: string | null;
-}
-
-type About = {
-  heading: string;
-  desc: string;
-  layout: "side" | "vertical" | "side-reverse";  
-  image: string | null;   
-}
-
-type Projects = {
-
-}
-
-type Contact = {
-  
-}
-
-type EditorState = {
-  sections: {
-    hero: Hero;
-    about: About;
-    projects: Projects;
-    contact: Contact;
-  }
-
-  font: "inter" | "poppins" | "montserrat";
-  theme: keyof typeof colorPalettes;
-  logo: string | null;
-};
-
-type OpenState =
-  | "font"
-  | "palette"
-  | "page"
-  | "menu"
-  | "view"
-  | "heroSection"
-  | "aboutSection"
-  | null;
 
 export default function Sidebar({
   editor,

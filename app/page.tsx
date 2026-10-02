@@ -1,87 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import { colorPalettes } from "@/app/theme"; // CONTINUE COLOR PALLETE AND CLEAN YOUR PARAMETERS
 
 import Header from "@/components/Header";
 import Sidebar from "@/components/sidebar/Sidebar";
 import Canvas from "@/components/canvas/Canvas";
-
-type Hero = {
-  heading: string;
-  desc: string;
-  layout: "side" | "vertical" | "cards";  
-  image: string | null;
-}
-
-type About = {
-  heading: string;
-  desc: string;
-  layout: "side" | "vertical" | "side-reverse";  
-  image: string | null;
-   
-}
-
-type Projects = {
-
-}
-
-type Contact = {
-  
-}
-
-type EditorState = {
-  sections: {
-    hero: Hero;
-    about: About;
-    projects: Projects;
-    contact: Contact;
-  }
-
-  font: "inter" | "poppins" | "montserrat";
-  theme: keyof typeof colorPalettes;
-  logo: string | null;
-};
-
-type OpenState =
-  | "font"
-  | "palette"
-  | "page"
-  | "menu"
-  | "view"
-  | "heroSection"
-  | "aboutSection"
-  | null;
+import { EditorState, OpenState, DEFAULT_EDITOR_STATE } from "@/types";
 
 export default function App() {
-  const [editor, setEditor] = useState<EditorState>({
-    sections: {
-      hero: {
-        heading: "LARGE HEADING HERE",
-        desc: "Type your description here.",
-        layout: "side",
-        image: null,
-      },
-
-      about: {
-        heading: "LARGE HEADING HERE",
-        desc: "Type your description here.",
-        layout: "side",
-        image: null,
-      },
-
-      projects: {
-        
-      },
-
-      contact: {
-        
-      },
-    },
-    
-    font: "inter",
-    theme: "Professional",
-    logo: null,
-  });
+  const [editor, setEditor] = useState<EditorState>(DEFAULT_EDITOR_STATE);
 
   const [isOpen, setIsOpen] = useState<OpenState>(null);
   const [changeView, setChangeView] = useState(false);

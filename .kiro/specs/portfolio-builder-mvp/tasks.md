@@ -8,7 +8,7 @@ This plan brings the Portfolio Builder MVP from its current state (working Hero 
 
 ## Tasks
 
-- [ ] 1. Create the Shared Types Module (`types/index.ts`)
+- [x] 1. Create the Shared Types Module (`types/index.ts`)
   - Create `types/index.ts` and export `HeroSection`, `AboutSection`, `ProjectItem`, `ProjectsSection`, `SocialLink`, `ContactSection`, `EditorState`, `OpenState`, `ViewportMode`, and `DEFAULT_EDITOR_STATE` exactly as specified in the design's Data Models section
   - `HeroSection` must use `name`, `title`, `tagline`, `photo` fields (not the old `heading`/`desc`); layout is `"side" | "vertical" | "side-reverse"` — no `"cards"` value
   - `ProjectsSection` has an `items: ProjectItem[]` array and a fixed `layout: "cards"` field
@@ -17,7 +17,7 @@ This plan brings the Portfolio Builder MVP from its current state (working Hero 
   - Remove `"page"`, `"menu"`, `"view"` values from `OpenState` only after confirming zero references to those values exist in the codebase; Task 3 (type migration) must verify no file references these values before they are deleted. Add `"projectsSection"` and `"contactSection"`
   - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5_
 
-- [ ] 2. Create validation utilities (`utils/validation.ts`)
+- [x] 2. Create validation utilities (`utils/validation.ts`)
   - Implement `isValidUrl`, `isValidEmail`, `isImageMimeType`, and `isImageSizeOk` in `utils/validation.ts` following the exact signatures and logic from the design's Validation Rules section
   - `isValidUrl`: uses the `URL` constructor; returns `true` only for `http:` or `https:` protocols; returns `false` for empty/whitespace strings
   - `isValidEmail`: tests `/^[^\s@]+@[^\s@]+\.[^\s@]+$/`
@@ -25,7 +25,7 @@ This plan brings the Portfolio Builder MVP from its current state (working Hero 
   - `isImageSizeOk`: returns `true` iff `bytes <= 5 * 1024 * 1024`
   - _Requirements: 2.9, 4.8, 5.5, 6.5, 12.1, 12.2, 12.3_
 
-- [ ] 3. Migrate all files from local type declarations to shared types
+- [x] 3. Migrate all files from local type declarations to shared types
   - Update `app/page.tsx`: remove all local type declarations (`Hero`, `About`, `Projects`, `Contact`, `EditorState`, `OpenState`); import `EditorState`, `OpenState`, `ViewportMode`, `DEFAULT_EDITOR_STATE` from `@/types`
   - Update `components/Header.tsx`: remove local type declarations; import from `@/types`
   - Update `components/canvas/Canvas.tsx`: remove local type declarations; import from `@/types`; fix the name collision between the `Hero` type and the `Hero` component import (the component import should be aliased or renamed — e.g., `import HeroSection from "./sections/Hero"`)
