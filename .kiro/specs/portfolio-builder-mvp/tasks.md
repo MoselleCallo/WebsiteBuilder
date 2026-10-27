@@ -123,13 +123,13 @@ This plan brings the Portfolio Builder MVP from its current state (working Hero 
   - Update section components (`Hero.tsx`, `About.tsx`) to remove the `changeView` prop if still present; responsive layout is now controlled by the canvas container width only
   - _Requirements: 9.1–9.7_
 
-- [ ] 12. Create storage utilities and wire localStorage persistence
-  - [ ] 12.1 Create `utils/storage.ts` with `saveEditorState(state: EditorState): void` and `loadEditorState(): EditorState | null` following the exact structural validation logic from the design's localStorage Persistence Design section
+- [x] 12. Create storage utilities and wire localStorage persistence
+  - [x] 12.1 Create `utils/storage.ts` with `saveEditorState(state: EditorState): void` and `loadEditorState(): EditorState | null` following the exact structural validation logic from the design's localStorage Persistence Design section
     - `loadEditorState` must validate all required keys: `sections.hero`, `sections.about`, `sections.projects`, `sections.contact`, `sections.contact.location` (undefined check), `font`, `theme` — return `null` if any are missing or if JSON.parse throws
     - All storage calls wrapped in try/catch; silent no-op when localStorage is unavailable (SSR guard)
     - _Requirements: 11.1–11.6_
 
-  - [ ] 12.2 Update `app/page.tsx` to use persistence: initialize `editor` state with `useState<EditorState>(() => loadEditorState() ?? DEFAULT_EDITOR_STATE)`; add a `useEffect` that debounces `saveEditorState(editor)` at 500ms on every `editor` change (return the clearTimeout cleanup)
+  - [x] 12.2 Update `app/page.tsx` to use persistence: initialize `editor` state with `useState<EditorState>(() => loadEditorState() ?? DEFAULT_EDITOR_STATE)`; add a `useEffect` that debounces `saveEditorState(editor)` at 500ms on every `editor` change (return the clearTimeout cleanup)
     - _Requirements: 11.1, 11.2, 11.3, 11.4, 11.5, 11.6_
 
 - [ ] 13. Implement the export pipeline
