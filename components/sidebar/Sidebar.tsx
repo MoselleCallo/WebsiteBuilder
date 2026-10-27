@@ -15,22 +15,12 @@ export default function Sidebar({
   setEditor,
   isOpen,
   setIsOpen,
-  layoutIsActive,
-  setLayout,
 }: {
   editor: EditorState;
   setEditor: React.Dispatch<React.SetStateAction<EditorState>>;
   isOpen: OpenState;
   setIsOpen: React.Dispatch<React.SetStateAction<OpenState>>;
-  layoutIsActive: boolean;
-  setLayout: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-
-  const sect = [
-    { name: "Hero", value: "hero" },
-    { name: "About", value: "about" },
-  ];
-
   return (
     <>
       <div className="w-full md:w-1/4 h-1/3 md:h-full bg-[#A2C2E0] rounded-t-xl flex flex-col">

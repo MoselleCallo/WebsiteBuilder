@@ -1,31 +1,20 @@
 "use client";
 import React from "react";
 import { colorPalettes } from "@/app/theme";
-import { EditorState, OpenState } from "@/types";
+import { EditorState, ViewportMode } from "@/types";
 
 import HeroSection from "./sections/Hero";
 import About from "./sections/About";
 import Projects from "./sections/Projects";
 import Contact from "./sections/Contact";
-
-const getLayout = { // continue when other features are completed
-  side: {
-    title: "flex-row items-center"
-  },
-  vertical: {
-    title: "flex-col text-center"
-  },
-  cards: "md: flex-col cols-3"
-};
+import { getVisibleSections } from "./FloatingNav";
 
 export default function Canvas({
   editor,
-  changeView,
-  layoutIsActive,
+  viewportMode,
 }: {
   editor: EditorState;
-  changeView: boolean;
-  layoutIsActive: boolean;
+  viewportMode: ViewportMode;
 }) {
   const fontOptions = {
     inter: "font-inter",
@@ -33,13 +22,23 @@ export default function Canvas({
     montserrat: "font-montserrat",
   };
 
+  const viewportWidth: Record<ViewportMode, string> = {
+    mobile: "w-[375px]",
+    tablet: "w-[768px]",
+    desktop: "w-[1280px]",
+  };
+
   const currentPalette = colorPalettes[editor.theme];
+
+  const navSections = getVisibleSections(editor);
 
   return (
     <div
       style={
         {
           "--color-main": currentPalette.main,
+          "--color-surface": currentPalette.surface,
+          "--color-border": currentPalette.border,
           "--color-primary": currentPalette.primary,
           "--color-secondary": currentPalette.secondary,
           "--color-accent": currentPalette.accent,
@@ -49,50 +48,70 @@ export default function Canvas({
           "--text-onPrimary": currentPalette.textOnPrimary,
         } as React.CSSProperties
       }
-      className="px-12 overflow-y-auto h-screen"
+      className="px-12 overflow-y-auto h-screen scroll-smooth"
     >
       <div
-        className={`relative items-start rounded-xl mx-auto bg-[var(--color-main)] ${fontOptions[editor.font]}
-        ${
-          changeView
-            ? "w-[375px]" // Device frame dimensions for mobile
-            : "w-full" // Native full dimensions for desktop
-        } `}
+        className={`relative items-start rounded-xl mx-auto bg-[var(--color-main)] ${fontOptions[editor.font]} ${viewportWidth[viewportMode]}`}
       >
-        <header className="absolute top-8 left-1/2 -translate-x-1/2 rounded-full w-3/4 h-16 z-50 bg-black shadow-2xl items-center">
-          <div className="flex justify-between p-4 items-center">
-            {/* Logo Container */}
-            <div className="items-center">
-              {editor.logo ? (
-                <img
-                  src={editor.logo}
-                  alt="Logo"
-                  className="h-10 object-contain"
-                />
-              ) : (
-                <span className="text-white text-[var(--text-muted)]">
-                  Logo
-                </span>
-              )}
-            </div>
+        <header className="sticky top-4 -mb-20 mx-auto rounded-full w-3/4 h-16 z-50 bg-black shadow-2xl items-center">
+          <div
+            className={`flex items-center p-4 ${
+              viewportMode === "mobile" ? "justify-center" : "justify-between"
+            }`}
+          >
+            {/* Logo Container — hidden in mobile viewport */}
+            {viewportMode !== "mobile" && (
+              <div className="items-center">
+                {editor.logo ? (
+                  <img
+                    src={editor.logo}
+                    alt="Logo"
+                    className="h-10 object-contain"
+                  />
+                ) : (
+                  <span className="text-white text-[var(--text-muted)]">
+                    Logo
+                  </span>
+                )}
+              </div>
+            )}
 
-            {/* Menu side */}
-            <div className="flex gap-4">
-              <button className="py-2 px-3 bg-[var(--color-secondary)] text-[var(--text-main)] font-semibold text-sm rounded-full">
-                Preview
-              </button>
-              <button className="py-2 px-3 bg-[var(--color-primary)] text-[var(--text-onPrimary)] font-semibold text-sm rounded-full">
-                Publish
-              </button>
-            </div>
+            {/* Menu links — each appears only when its section has content.
+                Centered in mobile, aligned to the end otherwise. */}
+            <nav className="flex items-center gap-6">
+              {navSections.map((section) => (
+                <a
+                  key={section.id}
+                  href={`#${section.id}`}
+                  className="text-white text-sm font-semibold hover:text-[var(--color-primary)] transition-colors"
+                >
+                  {section.label}
+                </a>
+              ))}
+            </nav>
           </div>
         </header>
 
       {/* Sections */}
-      <HeroSection editor={editor} />
-      <About editor={editor} />
-      <Projects editor={editor} />
-      <Contact editor={editor} />
+      <div id="hero">
+        <HeroSection editor={editor} viewportMode={viewportMode} />
+      </div>
+      <div id="about">
+        <About editor={editor} viewportMode={viewportMode} />
+      </div>
+      <div id="projects">
+        <Projects editor={editor} viewportMode={viewportMode} />
+      </div>
+      <div id="contact">
+        <Contact editor={editor} viewportMode={viewportMode} />
+      </div>
+
+      {/* Thin footer */}
+      <footer className="bg-[var(--color-main)] border-t border-[var(--color-border)] py-4 text-center">
+        <p className="text-[var(--text-muted)] text-xs">
+          Created with WebsiteBuilder - Moselle Callo 2026
+        </p>
+      </footer>
       </div>
     </div>
   );

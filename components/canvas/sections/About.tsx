@@ -1,12 +1,21 @@
 "use client";
 import React from "react";
-import { EditorState } from "@/types";
+import { EditorState, ViewportMode } from "@/types";
 
-export default function About({ editor }: { editor: EditorState }) {
+export default function About({
+  editor,
+  viewportMode,
+}: {
+  editor: EditorState;
+  viewportMode: ViewportMode;
+}) {
   const { heading, desc, image, layout } = editor.sections.about;
 
+  // In mobile view, side layouts are muted — always render vertical.
+  const isMobile = viewportMode === "mobile";
+
   const layoutClass =
-    layout === "vertical"
+    isMobile || layout === "vertical"
       ? "flex-col text-center items-center"
       : layout === "side-reverse"
         ? "flex-row-reverse items-center"

@@ -98,25 +98,25 @@ This plan brings the Portfolio Builder MVP from its current state (working Hero 
     - For each `SocialLink`: if `isValidUrl(url)` is true, render as `<a href={url}>` with a platform icon for recognized platforms (GitHub, LinkedIn, X/Twitter, Instagram, YouTube, Dribbble, Behance, Medium — use inline SVG icons) or text label + URL for unrecognized platforms; if URL is invalid, render platform name as text label only (no anchor)
     - _Requirements: 5.6, 6.2, 6.3, 6.4, 6.5, 6.6_
 
-- [ ] 9. Wire Projects and Contact into Sidebar and Canvas
+- [x] 9. Wire Projects and Contact into Sidebar and Canvas
   - Update `components/sidebar/Sidebar.tsx`: import and render `ProjectsEditor` and `ContactEditor`; update the `OpenState` type usage to include `"projectsSection"` and `"contactSection"`; remove the old local `sect` array and `layoutIsActive`/`setLayout` props from the Sidebar (layout is now owned entirely by `EditorState`); update Sidebar's prop signature to explicitly remove `layoutIsActive` and `setLayout` from its interface — not just from internal calls
   - Update `components/canvas/Canvas.tsx`: import and render `Projects` and `Contact` section components; remove `layoutIsActive` prop entirely
   - Update `app/page.tsx`: remove the `layoutIsActive` and `setLayout` state; stop passing them to `Canvas` and `Sidebar`
   - _Requirements: 4.1–4.8, 5.1–5.8, 6.1–6.6_
 
-- [ ] 10. Implement the FloatingNav component
-  - [ ] 10.1 Create `components/canvas/FloatingNav.tsx` that accepts `editor: EditorState` as a prop
+- [x] 10. Implement the FloatingNav component
+  - [x] 10.1 Create `components/canvas/FloatingNav.tsx` that accepts `editor: EditorState` as a prop
     - Compute visible sections using the pure rules from the design: hero visible when `name || title || tagline || photo`; about visible when `heading || desc || image`; projects visible when `items.length > 0`; contact visible when `email || phone || location || socialLinks.length > 0`
     - Render a `<nav>` with `position: sticky; top: 0; z-index: 50` as the **first child** inside the Canvas scroll container
     - Each `<a href="#hero">`, `<a href="#about">`, etc. using `scroll-behavior: smooth`
     - Apply theme colors via CSS custom properties (`var(--color-primary)`, etc.) inherited from the Canvas wrapper
     - _Requirements: 14.1, 14.2, 14.3, 14.6, 14.7_
 
-  - [ ] 10.2 Render `FloatingNav` as the first child inside the scrollable div in `Canvas.tsx`, and add `id="hero"`, `id="about"`, `id="projects"`, `id="contact"` to the corresponding section wrapper elements in the Canvas
+  - [x] 10.2 Render `FloatingNav` as the first child inside the scrollable div in `Canvas.tsx`, and add `id="hero"`, `id="about"`, `id="projects"`, `id="contact"` to the corresponding section wrapper elements in the Canvas
     - Add `scroll-behavior: smooth` to the canvas scroll container div
     - _Requirements: 14.1, 14.3_
 
-- [ ] 11. Expand viewport preview from boolean to three-mode selector
+- [x] 11. Expand viewport preview from boolean to three-mode selector
   - Update `app/page.tsx`: replace `changeView: boolean` state with `viewportMode: ViewportMode` (default `"mobile"`); stop passing `changeView`/`setChangeView` to `Header` and `Canvas`; pass `viewportMode`/`setViewportMode` instead
   - Update `components/Header.tsx`: replace the single mobile-toggle button with three viewport buttons (Mobile / Tablet / Desktop) that set `viewportMode`; keep the existing icon style; highlight the active mode
   - Update `components/canvas/Canvas.tsx`: replace the `changeView` boolean width logic with the three-way mapping: `"mobile"` → `w-[375px]`, `"tablet"` → `w-[768px]`, `"desktop"` → `w-[1280px]`; pass `viewportMode` down to section components where needed and remove all remaining `changeView` references

@@ -86,7 +86,7 @@ export const DEFAULT_EDITOR_STATE: EditorState = {
       title: "",
       tagline: "",
       photo: null,
-      layout: "side",
+      layout: "vertical",
     },
     about: {
       heading: "",
